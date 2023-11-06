@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.main.MainAdminMapper">
+	
+	<resultMap type="inqBoardVO" id="inqBoardMap">
+		<id property="inqNo" column="inq_no"/>
+		<result property="inqNo" column="inq_no"/>
+		<result property="inqTitle" column="inq_title"/>
+		<result property="inqCont" column="inq_cont"/>
+		<result property="inqRepl" column="inq_repl"/>
+		<result property="inqDate" column="inq_date"/>
+		<result property="inqConf" column="inq_conf"/>
+		<result property="cusRnum" column="cus_rnum"/>
+		<collection property="customerVO" resultMap="customerMap"/>
+	</resultMap>
+	
+	<resultMap type="customerVO" id="customerMap">
+		<id property="cusRnum" column="cus_rnum"/>
+		<result property="cusRnum" column="cus_rnum"/>
+		<result property="cusPw" column="cus_pw"/>
+		<result property="cusCom" column="cus_com"/>
+		<result property="cusName" column="cus_name"/>
+		<result property="cusLogo" column="cus_logo"/>
+		<result property="cusAddr" column="cus_addr"/>
+		<result property="cusAddr2" column="cus_addr2"/>
+		<result property="cusZip" column="cus_zip"/>
+		<result property="cusTel" column="cus_tel"/>
+		<result property="cusEmp" column="cus_emp"/>
+		<result property="cusEmail" column="cus_email"/>
+		<result property="cusBirth" column="cus_birth"/>
+		<result property="cusImage" column="cus_image"/>
+		<result property="cusSignature" column="cus_signature"/>
+		<collection property="attachList" resultMap="attachMap"/>
+		<collection property="paymentVO" resultMap="paymentMap"/>
+	</resultMap>
+	
+	<resultMap type="paymentVO" id="paymentMap">
+		<id property="payCode" column="pay_code"/>
+		<result property="payCode" column="pay_code"/>
+		<result property="payDate" column="pay_date"/>
+		<result property="payEdate" column="pay_edate"/>
+		<result property="payAmt" column="pay_amt"/>
+		<result property="payMethod" column="pay_method"/>
+		<result property="cusRnum" column="cus_rnum"/>
+		<result property="payStatus" column="pay_status"/>
+		<result property="levelName" column="level_name"/>
+		<result property="levelMemo" column="level_memo"/>
+		<result property="levelFee" column="level_fee"/>
+		<result property="levelVol" column="level_vol"/>
+		<result property="funcName" column="func_name"/>
+		<result property="funcMemo" column="func_memo"/>
+		<result property="funcFee" column="func_fee"/>
+		<association property="funcLevelList" resultMap="funcLevelMap"></association>
+	</resultMap>
+
+	
+	<resultMap type="funcLevelVO" id="funcLevelMap">
+		<result property="payCode" column="pay_code"/>
+		<result property="funcName" column="func_name"/>
+		<result property="funcMemo" column="func_memo"/>
+<!-- 		<collection property="funcInfoVOList" resultMap="funcInfoMap"></collection> -->
+	</resultMap>
+	
+	<resultMap type="attachVO" id="attachMap">
+		<id property="fileNo" column="file_no"/>
+		<result property="fileNo" column="file_no"/>
+		<result property="fileSavepath" column="file_savepath"/>
+		<result property="fileName" column="file_name"/>
+		<result property="fileOrgname" column="file_orgname"/>
+		<result property="fileSize" column="file_size"/>
+		<result property="fileMime" column="file_mime"/>
+		<result property="fileDowncount" column="file_downcount"/>
+		<result property="fileRegdate" column="file_regdate"/>
+		<result property="fileUploader" column="file_uploader"/>
+		<result property="fileDelConf" column="file_del_conf"/>
+		<result property="fileDelDate" column="file_del_date"/>
+		<result property="fileCode" column="file_code"/>
+	</resultMap>
+	
+
+	<!-- 회원 목록(관리자) -->
+	<sql id="customerSearch">
+		<if test="searchType != null and searchType == 'companyno'">
+			and (cus_rnum like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'companyname'">
+			and (cus_com like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'reprename'">
+			and (cus_name like '%'||#{searchWord}||'%')
+		</if>
+	</sql>
+	
+	<select id="selectCustomerCount" parameterType="pagingVO" resultType="int">
+		select count(cus_rnum)
+		from customer
+		where 1=1
+		<include refid="customerSearch"/>
+	</select>
+	
+	<select id="selectCustomerList" parameterType="pagingVO" resultType="customerVO">
+		select
+			b.*
+		from(
+			select
+				a.*, row_number() over (order by a.cus_rnum desc) rnum
+			from(
+				select
+					cus_rnum, cus_pw, cus_com, cus_name, cus_logo, cus_addr, cus_addr2, cus_zip,
+					cus_tel, cus_emp, cus_email, cus_birth, cus_image, cus_signature
+				from customer
+				where 1=1
+				<include refid="customerSearch"/>
+				order by cus_rnum desc
+			) a
+		) b
+		<![CDATA[
+			where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="selectCustomer" parameterType="String" resultMap="customerMap">
+		select
+		    c.cus_rnum, c.cus_pw, c.cus_com, c.cus_name, c.cus_logo, c.cus_addr, c.cus_addr2,
+		    c.cus_tel, c.cus_emp, c.cus_email, c.cus_birth, c.cus_image, c.cus_signature, c.cus_zip,
+		    a.file_no, a.file_savepath, a.file_name, a.file_orgname, a.file_size,
+		    a.file_mime, a.file_downcount, a.file_regdate, a.file_uploader, a.file_del_conf,
+		    a.file_del_date, a.file_code
+		from customer c left outer join attach a on c.cus_rnum = a.file_uploader
+		where cus_rnum = #{cusRnum}
+	</select>
+	
+	<!-- 기능 관리(관리자) -->
+	<select id="selectFuncList" resultType="funcInfoVO">
+		select
+			func_name, func_memo, func_fee
+		from func_info
+		where 1=1
+	</select>
+	
+	<select id="selectFunc" resultType="funcInfoVO">
+		select
+			func_name, func_memo, func_fee
+		from func_info
+		where func_name = #{funcName}
+	</select>
+	
+	<insert id="insertFunc" parameterType="funcInfoVO">
+		insert into func_info(
+			func_name, func_memo, func_fee
+		)values(
+			#{funcName}, #{funcMemo}, #{funcFee}
+		)
+	</insert>
+	
+	<update id="updateFunc" parameterType="funcInfoVO">
+		update func_info
+		set
+			func_memo = #{funcMemo},
+			func_fee = #{funcFee}
+		where func_name = #{funcName}
+	</update>
+	
+	<delete id="deleteFunc" parameterType="String">
+		delete from func_info
+		where func_name = #{funcName}
+	</delete>
+	
+	<!-- 레벨 관리(관리자) -->	
+	<select id="selectLevelList" resultType="levelInfoVO">
+		select
+			level_name, level_memo, level_fee, level_vol
+		from level_info
+		where 1=1
+	</select>
+	
+	<insert id="insertLevel" parameterType="levelInfoVO">
+		insert into level_info(
+			level_name, level_memo, level_fee, level_vol
+		)values(
+			#{levelName}, #{levelMemo}, #{levelFee}, #{levelVol}
+		)
+		
+	</insert>
+	
+	<select id="selectLevel" parameterType="String" resultType="levelInfoVO">
+		select
+			level_name, level_memo, level_fee, level_vol
+		from level_info
+		where level_name = #{levelName}
+	</select>
+	
+	<update id="updateLevel" parameterType="levelInfoVO">
+		update level_info
+			set
+				level_memo = #{levelMemo},
+				level_fee = #{levelFee},
+				level_vol = #{levelVol}
+		where level_name = #{levelName}
+	</update>
+	
+	<delete id="deleteLevel" parameterType="String">
+		delete from level_info
+		where level_name = #{LevelName}
+	</delete>
+	
+	<!-- 구매 회원 관리(관리자) -->
+	<sql id="paymentSearch">
+		<if test="searchType != null and searchType == 'cusRnum'">
+			and (c.cus_rnum like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'cusCom'">
+			and (c.cus_com like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'cusName'">
+			and (c.cus_name like '%'||#{searchWord}||'%')
+		</if>
+	</sql>
+	
+	<select id="selectPaymentCount" parameterType="pagingVO" resultType="int">
+		select count(pay_code)
+		from payment
+		where 1=1
+	</select>
+	
+	<select id="selectPaymentList" parameterType="pagingVO" resultMap="customerMap">
+		select
+			b.*
+		from(
+			select
+				a.*, row_number() over (order by a.pay_code desc) rnum
+			from(
+				select
+				    p.pay_code, p.pay_date, p.pay_edate, p.pay_amt, p.pay_method, p.pay_status,
+				    c.cus_rnum, c.cus_com, c.cus_name, pd.level_name,
+				    li.level_memo, li.level_fee, li.level_vol
+				from payment p left outer join customer c on p.cus_rnum = c.cus_rnum
+				               left outer join payment_detail pd on p.pay_code = pd.pay_code
+				               left outer join level_info li on pd.level_name = li.level_name
+				where 1=1
+				<include refid="paymentSearch"/>
+				order by pay_code desc
+			) a
+		) b
+		<![CDATA[
+			where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="selectPayment" parameterType="String" resultMap="customerMap">
+		select
+		    p.pay_code, p.pay_date, p.pay_edate, p.pay_amt, p.pay_method, p.pay_status,
+		    c.cus_rnum, c.cus_com, c.cus_name, pd.level_name,
+		    li.level_memo, li.level_fee, li.level_vol,
+		    fl.func_name, fi.func_memo, fi.func_fee
+		from payment p left outer join customer c on p.cus_rnum = c.cus_rnum
+		               left outer join payment_detail pd on p.pay_code = pd.pay_code
+		               left outer join level_info li on pd.level_name = li.level_name
+		               left outer join func_level fl on pd.pay_code = fl.pay_code
+		               left outer join func_info fi on fl.func_name = fi.func_name
+		where pay_code = #{payCode}
+	</select>
+	
+	
+	<select id="selectLevelName" resultType="paymentVO">
+		SELECT
+			pd.level_name, COUNT(*) AS level_cnt,
+			ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS level_ratio
+		FROM payment_detail pd LEFT OUTER JOIN payment p ON pd.pay_code = p.pay_code
+		<![CDATA[
+		WHERE p.pay_date >= '2023-10-24' AND p.pay_date <= sysdate
+		]]>
+		GROUP BY pd.level_name
+		ORDER BY pd.level_name
+	</select>
+	
+	<select id="selectFuncName" resultType="paymentVO">
+		SELECT
+			fi.func_memo, COUNT(*) AS func_cnt,
+			ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS func_ratio
+		FROM func_level fl
+		LEFT OUTER JOIN payment p ON fl.pay_code = p.pay_code
+		LEFT OUTER JOIN func_info fi ON fl.func_name = fi.func_name
+		<![CDATA[
+		WHERE p.pay_date >= '2023-10-24' AND p.pay_date <= sysdate
+		]]>
+		GROUP BY fi.func_memo
+		ORDER BY fi.func_memo
+		
+	</select>
+	
+	<select id="selectSales" resultType="paymentVO">
+		SELECT TO_CHAR(pay_date, 'YYYY-MM') AS month, SUM(pay_amt) as total_cnt
+		FROM (
+		    SELECT pay_amt, COUNT(*) as cnt, pay_date
+		    FROM payment
+		    <![CDATA[
+		    WHERE pay_date >= '2023-10-01' AND pay_date <= sysdate
+		    ]]>
+		    GROUP BY pay_date, pay_amt
+		) subquery
+		GROUP BY TO_CHAR(pay_date, 'YYYY-MM')
+		ORDER BY month
+	</select>
+	
+	<sql id="boardSearch">
+		<if test="searchType != null and searchType == 'inqTitle'">
+			and (i.inq_title like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'cusCom'">
+			and (c.cus_com like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'cusName'">
+			and (c.cus_name like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'cusRnum'">
+			and (i.cus_rnum like '%'||#{searchWord}||'%')
+		</if>
+	</sql>
+	
+	<select id="selectBoardCount" parameterType="pagingVO" resultType="int">
+		select count(i.inq_no)
+		from inq_board i
+		where 1=1
+		<include refid="boardSearch"/>
+	</select>
+
+	<select id="selectBoardList" parameterType="pagingVO" resultMap="inqBoardMap">
+		select
+			b.*
+		from(
+			select
+				a.*, row_number() over (order by a.inq_no desc) rnum
+			from(
+				select
+				    i.inq_no, i.inq_title, i.cus_rnum, c.cus_name, c.cus_com, i.inq_date, i.inq_conf
+				from inq_board i left outer join customer c on i.cus_rnum = c.cus_rnum
+				where 1=1
+				and i.inq_conf = 'N'
+				<include refid="boardSearch"/>
+				order by i.inq_no desc
+			) a
+		) b
+		<![CDATA[
+			where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+		]]>
+	</select>
+
+</mapper>
