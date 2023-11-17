@@ -21,6 +21,8 @@ import kr.or.ddit.vo.CustomUser;
 import kr.or.ddit.vo.EmpVO;
 import lombok.extern.slf4j.Slf4j;
 
+// 커밋 테스트
+
 @Slf4j
 @RestController
 @RequestMapping(value="/arm", produces = "application/json;charset=utf-8")
