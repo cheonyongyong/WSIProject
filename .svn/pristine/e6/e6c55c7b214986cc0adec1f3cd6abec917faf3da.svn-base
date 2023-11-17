@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.home.GridMapper">
+
+	<select id="selectGrid" parameterType="string" resultType="gridVO">
+		SELECT
+		    grid_no
+		  , emp_no
+		  , x
+		  , y
+		  , w
+		  , h
+		  , content
+		  , id
+		  , no_move
+		FROM
+		    grid
+		WHERE
+			emp_no = #{empNo}
+	</select>
+	
+<!-- 	<select id="selectCommonList" parameterType="string" resultType="treeVO"> -->
+<!-- 		select  -->
+<!-- 			com_code, com_name -->
+<!-- 		from common -->
+<!-- 		where com_upcode = #{upcode} -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectAllCommon" resultType="commonVO"> -->
+<!-- 		select  -->
+<!-- 			* -->
+<!-- 		from common -->
+<!-- 	</select> -->
+
+
+</mapper>
