@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -60,6 +61,61 @@
 				        			<fmt:formatNumber value="${funcInfo.funcFee }" pattern="#,###" />원
 			        			</c:if>
 			        		</td>
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>기능 관리</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="max-width: 80%;">
+    <div class="row" style="margin: 0; padding: 0;">
+        <div class="col-lg-2 pt-5 pb-5" style="padding-left: 20px; padding-right: 20px;">
+            <!-- 사이드 메뉴 -->
+            <%@ include file="sidemenuAdmin.jsp" %>
+        </div>
+
+        <div class="col-lg-10 pt-5 pb-5" style="padding-left: 20px; padding-right: 20px;">
+<!--             <h3 class="mb-5">기능 관리</h3> -->
+            <div class="col-lg-12" align="center">
+            
+            
+            
+            <div class="col-lg-10" align="right">
+            	<button type="button" id="addBtn" class="btn btn-outline-light" style="background-color: #D0DDF3;">기능 추가하기</button>
+           		<!-- Button trigger modal -->
+<!-- 				<button type="button" class="btn btn-outline-light" style="background-color: #D0DDF3;" data-toggle="modal" data-target="#exampleModal">기능 추가하기</button> -->
+            </div>
+            
+            <br>
+		
+        <table class="table table-hover col-lg-10">
+        	<tr style="background-color: #D0DDF3; color: black; text-align: center;">
+        		<th style="width: 25%;">기능 이름</th>
+        		<th style="width: 25%;">기능 가격</th>
+        		<th style="width: 50%;">기능 설명</th>
+<!--         		<th>수정</th> -->
+<!--         		<th>삭제</th> -->
+        	</tr>
+        	<c:choose>
+        		<c:when test="${empty funcInfoList }">
+        			<tr align="center">
+        				<td colspan="3">조회할 기능이 없습니다.</td>
+        			</tr>
+        		</c:when>
+        		<c:otherwise>
+        			<c:forEach items="${funcInfoList }" var="funcInfo">
+			        	<tr onclick="location.href='/mypageadmin/funcdetail?funcName=${funcInfo.funcName }'" style="cursor:pointer;">
+			        		<td align="center">${funcInfo.funcName }</td>
+			        		<td align="right">
+			        			<fmt:formatNumber value="${funcInfo.funcFee }" pattern="#,###" />원
+			        		</td>
+			        		<td align="center">${funcInfo.funcMemo }</td>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 <!-- 			        		<td><button type="button" class="btn btn-outline-light" style="padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; background-color: #79A9F5;">수정</button></td> -->
 <!-- 			        		<td><button type="button" class="btn btn-outline-light" style="padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px; background-color: #F57878;">삭제</button></td> -->
 			        	</tr>

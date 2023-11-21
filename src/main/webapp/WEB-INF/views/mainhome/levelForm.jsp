@@ -8,6 +8,7 @@
 		<c:set value="수정" var="name"/>
 	</c:if>
 
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -66,6 +67,66 @@
                     <label class="col-lg-3 col-form-label">레벨 설명</label>
                     <div class="col-lg-8">
                     	<textarea id="levelVol" name="levelVol" cols="30" rows="10" class="form-control">${levelInfo.levelVol }</textarea>
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>레벨 관리</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="max-width: 80%;">
+    <div class="row" style="margin: 0; padding: 0;">
+        <div class="col-lg-2 pt-5 pb-5" style="padding-left: 20px; padding-right: 20px;">
+            <!-- 사이드 메뉴 -->
+            <%@ include file="sidemenuAdmin.jsp" %>
+        </div>
+
+        <div class="col-lg-10 pt-5 pb-5" style="padding-left: 20px; padding-right: 20px;">
+            <h3 class="mb-5" align="center"><b>레벨 ${name }하기</b></h3>
+            <div class="col-lg-12" align="center">
+        <form action="/mypageadmin/levelinsert" class="p-5 bg-light col-lg-10 justify-content-md-center" method="post" id="levelForm">
+           	<input type="hidden" id="cusRnum" name="cusRnum" value="${SessionInfo.cusRnum }">
+            <c:if test="${status eq 'u' }">
+           		<input type="hidden" id="levelName" name="levelName" value="${levelInfo.levelName }">
+           	</c:if>
+            <div class="col-lg-12 justify-content-md-center">
+                <c:if test="${status ne 'u' }">
+	                <div class="form-group row">
+	                    <label class="col-lg-3 col-form-label">레벨 이름</label>
+	                    <div class="col-lg-8">
+	                        <input type="text" class="form-control" id="levelName" name="levelName">
+	                    </div>
+	                </div>
+                </c:if>
+                <c:if test="${status eq 'u' }">
+	                <div class="form-group row">
+	                    <label class="col-lg-3 col-form-label">레벨 이름</label>
+	                    <div class="col-lg-8">
+	                        <input type="text" class="form-control" id="levelName" name="levelName" value="${levelInfo.levelName }" disabled="disabled">
+	                    </div>
+	                </div>
+                </c:if>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">레벨 가격</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="levelFee" name="levelFee" value="${levelInfo.levelFee }">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">자료실 용량</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="levelVol" name="levelVol" value="${levelInfo.levelVol }">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">레벨 설명</label>
+                    <div class="col-lg-8">
+                    	<textarea id="levelMemo" name="levelMemo" cols="30" rows="10" class="form-control">${levelInfo.levelMemo }</textarea>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
                     </div>
                 </div>
 				

@@ -25,7 +25,10 @@ public class PaginationInfoVO<T> {
 	private String selectDept;	// 부서 검색
 	private String firstDate;
 	private String lastDate;
+<<<<<<< HEAD
 	private String aprStat;
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 	public PaginationInfoVO() {}
 	// PaginationInfoVO 객체를 만들 때, 한 페이지당 게시글 수와 페이지 블록 수를 원하는 값으로 초기화 할 수 있다.

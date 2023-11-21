@@ -63,6 +63,9 @@ public interface IMainAdminService {
 
 	public List<InqBoardVO> selectBoardList(PaginationInfoVO<InqBoardVO> pagingVO);
 
+<<<<<<< HEAD
 	public List<CustomerVO> selectCusEmp();
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

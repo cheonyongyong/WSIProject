@@ -35,6 +35,7 @@ public interface WorkMapper {
 
 	public List<WorkVO> selectWorkManageList(PaginationInfoVO<WorkVO> pagingVO);
 
+<<<<<<< HEAD
 	public int insertworkStart(String empNo);
 
 	public WorkVO selectoneWork(String empNo);
@@ -44,5 +45,7 @@ public interface WorkMapper {
 	public int updateworkTotal(WorkVO workVO);
 
 	public List<WorkVO> workListMonth(HashMap<String, String> workMap);
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 }

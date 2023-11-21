@@ -14,6 +14,9 @@ public interface TreeMapper {
 
 	public List<TreeVO> jobList();
 
+<<<<<<< HEAD
 	public List<TreeVO> treeList2();
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

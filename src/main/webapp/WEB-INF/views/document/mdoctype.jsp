@@ -26,7 +26,13 @@
 													class="form-control float-right" placeholder="문서종류를 입력하세요"></li>
 												<li class="nav-item">
 													<div class="input-group-append">
+<<<<<<< HEAD
 														<button type="submit" class="btn btn-primary">검색</button>
+=======
+														<button type="submit" class="btn btn-primary">
+															<i class="fas fa-search"></i>검색
+														</button>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 													</div>
 												</li>
 												<sec:csrfInput />

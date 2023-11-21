@@ -39,9 +39,13 @@ public class CustomerVO {
 //	//CUSTOMER테이블 : PAYMENT테이블 = 1 : N 
 //	private List<PaymentVO> paymentVOList;
 
+<<<<<<< HEAD
 	// 인원수 차트
 	private String cusEmpRange;
 	private int empCnt;
 	
 	private int rNum;
+=======
+	
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

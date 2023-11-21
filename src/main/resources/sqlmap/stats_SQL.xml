@@ -14,6 +14,7 @@
 	</select>
 
 	<select id="selectRecruitYear" resultType="statsVO">
+<<<<<<< HEAD
 		SELECT TO_CHAR(e.emp_date, 'YYYY') AS year,
 		       SUM(CASE WHEN r.rec_type = '경력' THEN subquery.cnt ELSE 0 END) as car_cnt,
 		       SUM(CASE WHEN r.rec_type = '신입' THEN subquery.cnt ELSE 0 END) as new_cnt,
@@ -29,6 +30,18 @@
 		    GROUP BY emp_no, emp_date
 		) subquery ON e.emp_no = subquery.emp_no
 		GROUP BY TO_CHAR(e.emp_date, 'YYYY')
+=======
+		SELECT TO_CHAR(emp_date, 'YYYY') AS year, SUM(cnt) as total_cnt
+		FROM (
+		    SELECT emp_no, COUNT(*) as cnt, emp_date
+		    FROM emp
+		    <![CDATA[
+		    WHERE emp_date >= '2012-01-01' AND emp_date <= sysdate
+		    ]]>
+		    GROUP BY emp_date, emp_no
+		) subquery
+		GROUP BY TO_CHAR(emp_date, 'YYYY')
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		ORDER BY year
 	</select>
 	

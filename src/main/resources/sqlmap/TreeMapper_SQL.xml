@@ -18,6 +18,7 @@
 		WHERE 1=1
 		AND COM_UPCODE = 'a'
 	</select>
+<<<<<<< HEAD
 
 	<select id="treeList2" resultType="TreeVO">
 		SELECT 
@@ -26,6 +27,8 @@
 		WHERE 1=1
 		AND COM_UPCODE = 'a'
 	</select>
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 	<select id="posList" resultType="TreeVO">
 		SELECT 

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import kr.or.ddit.ServiceResult;
 import kr.or.ddit.vo.AttachVO;
 import kr.or.ddit.vo.BoardVO;
+<<<<<<< HEAD
 import kr.or.ddit.vo.GridVO;
 import kr.or.ddit.vo.PaginationInfoVO;
 
@@ -29,4 +30,23 @@ public interface IHomeService {
 	public List<GridVO> selectGrid();
 
 	public ServiceResult updateGrid(List<GridVO> gridList);
+=======
+import kr.or.ddit.vo.PaginationInfoVO;
+
+public interface IHomeService {
+
+	public int selctBoardCount(PaginationInfoVO<BoardVO> pagingVO);
+
+	public List<BoardVO> selectBoardList(PaginationInfoVO<BoardVO> pagingVO);
+
+	public ServiceResult registerBoard(HttpServletRequest req, BoardVO boardVO) throws Exception;
+
+	public BoardVO selectBoard(String boardNo);
+
+	public AttachVO selectFileInfo(String fileNo);
+
+	public ServiceResult deleteBoard(String boardNo);
+
+	public ServiceResult updateBoard(HttpServletRequest req, BoardVO boardVO);
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

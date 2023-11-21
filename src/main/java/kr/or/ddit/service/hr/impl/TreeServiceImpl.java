@@ -32,12 +32,15 @@ public class TreeServiceImpl implements ITreeService{
 		
 		return treeList;
 	}
+<<<<<<< HEAD
 	@Override
 	public List<TreeVO> getList2() {
 		List<TreeVO> treeList = treeMapper.treeList2();
 		
 		return treeList;
 	}
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 	@Override
 	public List<TreeVO> getPosList() {

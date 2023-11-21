@@ -13,9 +13,15 @@
 		            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
 			            <div class="col-md-3">
 			            	<div class="mb-3">
+<<<<<<< HEAD
 			                    제목 : <input type="text" class="form-control" name="libTitle" id="libTitle" placeholder="제목을 입력하세요" value="" required="">
 			                	<div class="invalid-feedback">
 			                        	제목을 입력하세요
+=======
+			                    제목 : <input type="text" class="form-control" name="libTitle" id="libTitle" placeholder="입력하세요" value="" required="">
+			                	<div class="invalid-feedback">
+			                        	입력하세요
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 			                    </div>
 			                </div>
 			            </div>

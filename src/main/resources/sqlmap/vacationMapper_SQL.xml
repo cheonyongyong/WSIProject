@@ -26,6 +26,7 @@
 		</if>
 	</sql>
 
+<<<<<<< HEAD
 	<select id="allVacationChange" statementType="CALLABLE">
 	    {
 	    	call PROC_ADD_VP_DAYS
@@ -87,6 +88,61 @@
 		            e.emp_name,
 		            e.emp_no,
 		            e.emp_profile,
+=======
+	<select id="selectHaveVacCount" parameterType="pagingVO" resultType="int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT
+		        e.emp_name,
+		        e.emp_no,
+		        e.emp_dept,
+		        latest_vp.vp_days AS latest_vp_days,
+		        oldest_vp.vp_days AS oldest_vp_days
+		    FROM
+		        emp e
+		    LEFT JOIN (
+		        SELECT
+		            emp_no,
+		            vp_days,
+		            vp_chg_date,
+		            ROW_NUMBER() OVER (PARTITION BY emp_no ORDER BY vp_chg_date DESC) AS rn
+		        FROM
+		            vp_chg
+		        WHERE
+		            TO_CHAR(vp_chg_date, 'YYYY') = '2023'
+		    ) latest_vp
+		    ON
+		        e.emp_no = latest_vp.emp_no AND latest_vp.rn = 1
+		    LEFT JOIN (
+		        SELECT
+		            emp_no,
+		            vp_days,
+		            vp_chg_date,
+		            ROW_NUMBER() OVER (PARTITION BY emp_no ORDER BY vp_chg_date ASC) AS rn
+		        FROM
+		            vp_chg
+		        WHERE
+		            TO_CHAR(vp_chg_date, 'YYYY') = '2023'
+		    ) oldest_vp
+		    ON
+		        e.emp_no = oldest_vp.emp_no AND oldest_vp.rn = 1
+		    WHERE
+		        (latest_vp.emp_no IS NOT NULL OR oldest_vp.emp_no IS NOT NULL)
+			<include refid="commonSearch"/>
+		)
+	</select>
+
+	<select id="selectHaveVacList" parameterType="pagingVO" resultType="vacPersonalVO">
+		SELECT *
+		FROM (
+		    SELECT
+		        a.*,
+		        ROW_NUMBER() OVER (ORDER BY a.emp_name) AS rnum
+		    FROM (
+		        SELECT
+		            e.emp_name,
+		            e.emp_no,
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		            e.emp_dept,
 		            latest_vp.vp_days AS latest_vp_days,
 		            oldest_vp.vp_days AS oldest_vp_days

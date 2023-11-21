@@ -18,6 +18,11 @@ public class TestApp {
 		
 		BoardMapper BoardMapper = (BoardMapper)context.getBean("noticeBoardMapper");
 		
+<<<<<<< HEAD
+=======
+		System.out.println(BoardMapper);
+		
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		PaginationInfoVO<BoardVO> pagingVO = new PaginationInfoVO<BoardVO>();
 		
 		List<BoardVO> boardList = BoardMapper.selectBoardList(pagingVO);

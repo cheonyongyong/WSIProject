@@ -45,8 +45,11 @@ public interface MainMapper {
 
 	public PaymentVO paymentDetail(String payCode);
 
+<<<<<<< HEAD
 	public CustomerVO selectMemberImage(String cusRnum);
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 //	public CustomerVO selectCustomerEmail(String cusRnum);
 
 //	public PaymentVO selectPayCode(String cusRnum);

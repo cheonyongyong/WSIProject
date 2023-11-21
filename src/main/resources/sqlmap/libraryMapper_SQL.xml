@@ -6,6 +6,7 @@
 	
 	<sql id="libSearch">
 		<if test="searchType != null and searchType == 'both'">
+<<<<<<< HEAD
 			and (l.lib_title like '%'||#{searchWord}||'%')
 		</if>
 		<if test="searchType != null and searchType == 'title'">
@@ -49,6 +50,43 @@
 	<select id="libSize" resultType="int">
 		select 
 			sum(file_size)/1024/1024/1024/5*100 lib_size
+=======
+			and (lib_title like '%'||#{searchWord}||'%')
+			or (emp_name like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'title'">
+			and (lib_title like '%'||#{searchWord}||'%')
+		</if>
+		<if test="searchType != null and searchType == 'writer'">
+			and (emp_name like '%'||#{searchWord}||'%')
+		</if>
+	</sql>
+	
+	<select id="libList" parameterType="pagingVO" resultType="libraryVO">
+		select * from (
+		    select a.*, row_number() over (order by a.emp_name desc) as rnum
+		    from (
+		        select
+					lib_no, lib_title, lib_regdate, lib_upddate, lib_file_no, lib_category, (select file_name from 
+					attach where l.lib_file_no = attach.file_no) file_name, 
+					(select file_downcount from attach where l.lib_file_no = attach.file_no) lib_downcount, 
+					lib_writer, emp_name from lib_board l, emp e
+				where l.lib_writer = e.emp_no
+            order by lib_upddate
+		    ) a
+		    where 1=1
+            <include refid="libSearch"/>
+            order by lib_upddate desc
+		) b
+		<![CDATA[
+			where b.rnum >= #{startRow} and b.rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="libSize" resultType="int">
+		select 
+			sum(file_size)/1024/1024*100 lib_size
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		from attach, lib_board
 		where 
 			lib_board.lib_file_no = attach.file_no

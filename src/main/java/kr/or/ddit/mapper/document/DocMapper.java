@@ -43,6 +43,7 @@ public interface DocMapper {
 	public int save(DocVO docVO);
 	public String selectAuth(EmpVO empVO);
 	public DocVO selectAprJob(DocVO docVO);
+<<<<<<< HEAD
 	public int workAplyRegister(DocVO docVO);
 	public int updateAbDoc(DocVO docVO);
 	public DocVO selectWorkAply(DocVO docVO);
@@ -51,5 +52,7 @@ public interface DocMapper {
 	public int vaapRegister(DocVO docVO);
 	public List<DocVO> selectAprList(String docNo);
 	public List<DocVO> selectStorageList(String docNo);
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 }

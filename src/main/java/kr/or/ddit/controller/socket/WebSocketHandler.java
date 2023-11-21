@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class WebSocketHandler extends TextWebSocketHandler {
+<<<<<<< HEAD
 		// 소켓에 접속한 인원들을 담기 위한 리스트 객체 생성
 		List<SocketVO> socketList = new ArrayList<SocketVO>();
 		
@@ -115,6 +116,95 @@ public class WebSocketHandler extends TextWebSocketHandler {
 //				}
 //				
 //			}
+=======
+	// 소켓에 접속한 인원들을 담기 위한 리스트 객체 생성
+//		List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+//		Map<String, WebSocketSession> userSessions = new HashMap<String, WebSocketSession>();
+		List<SocketVO> socketList = new ArrayList<SocketVO>();
+		
+		@Override
+		public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+			log.info("afterConnectionEstablished() 실행...!! 클라이언트 서버 접속 연결 성공...! : {}", session);
+			log.info("session : {}", session.getId());
+			
+			// 현재 소켓에 접속한 인원들 리스트에 모두 담는다.
+//			socketList.add(session);
+//			String senderId = getId(session);
+//			userSessions.put(senderId, session);
+			
+			////////////////////////////////////////////////////////////////////////////////////////////////////
+//			CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			SocketVO socketVO = getsocketVO(session);
+			if(socketList != null && socketList.size() > 0) {
+				for(int i = 0; i < socketList.size(); i++) {
+					if(socketVO.getEmpNo().equals(socketList.get(i).getEmpNo())) {
+						socketList.get(i).setSession(session);
+					}
+				}
+			}else {
+				socketList.add(socketVO);
+			}
+			log.info("socketList : {}", socketList);
+			////////////////////////////////////////////////////////////////////////////////////////////////////
+		}
+
+
+		@Override
+		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+			////////////////////////////////////////////////////////////////////////////////////////////////////
+			// 1. JSP페이지에서 소켓 이벤트와 비동기 통신이 동시에 일어나는거
+			
+			// 2. JSP페이지에서 소켓 이벤트로 넘어온 핸들을 처리하고 그안에서 Mapper를 통한 DB처리 일어나는것
+			////////////////////////////////////////////////////////////////////////////////////////////////////
+			log.info("handleTextMessage() 실행...!! 메세지 전송 시도 성공...!");
+			log.info("메세지야 들어오아라..."+ message.getPayload().toString()); 
+			
+//			log.info("handleTextMessage에 들어온 세션과 메세지"+ session + ": "+ message);
+			
+			
+			// jsp 페이지에서 쏴준 아이디 값
+//			String senderId =  message.getPayload().toString();
+			SocketVO socketVO = getsocketVO(session);
+			String senderId = socketVO.getEmpNo();
+			log.info("소켓 컨트롤러에서 로그인한 아이디 값 추출 : "+senderId);
+			 
+			// 모든 유저에게 보내기
+//			for(WebSocketSession sessionOne : sessionList) {
+//				// jsp 페이지에 ws.onmessage로 메세지를 보내준다. 
+//				sessionOne.sendMessage(new TextMessage(senderId + " : " + message));
+//			}
+			
+			// protocol: 명령, 댓글작성자, 게시글작성자, 글번호?		(reply, user2, user1, 234)
+			String msg = message.getPayload();
+			if(StringUtils.isNotEmpty(msg)) {
+				String[] strs = msg.split(",");
+				
+				if(strs != null && strs.length == 4) {
+					String alarmCnt = strs[0];
+					String aContent = strs[1];
+					String boardWriter = strs[2];
+					String aNo = strs[3];
+					
+////////////////////////////////////////////////////////////////////////////////////////////////////
+					WebSocketSession boardWriterSession = session;
+					
+					for(SocketVO socket : socketList) {
+						if(socket.getEmpNo().equals(boardWriter)) {
+							boardWriterSession = socket.getSession();
+						}
+					}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+					
+//					WebSocketSession boardWriterSession = userSessions.get(boardWriter);
+					log.info("boardWriterSession >>>>>>>>>>>>>" + boardWriterSession);
+					if(boardWriterSession != null) {
+						TextMessage tmpMsg = new TextMessage("미확인 알람 갯수 : "+alarmCnt+"<br>"+"<a href='/notice/updateAlarm.do?aNo="+aNo+"'>"+aContent+"</a>");
+						boardWriterSession.sendMessage(tmpMsg);
+					}
+				}
+				
+			}
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 			
 			// 받은 메시지를 
 //			super.handleTextMessage(session, message);

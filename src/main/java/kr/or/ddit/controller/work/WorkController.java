@@ -59,6 +59,7 @@ public class WorkController {
 		List<MenuVO> menuList = Arrays.asList(menu1);
 		model.addAttribute("menuList", menuList);
 		
+<<<<<<< HEAD
 		// 서브메뉴 리스트
 		MenuVO menu4 = new MenuVO("내 근무 기록", "/work/myworklist");
 		List<MenuVO> submenuList = Arrays.asList(menu4);
@@ -406,6 +407,398 @@ public class WorkController {
 		String firstDate = map.get("firstDate").toString();
 		
 		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!: " + firstDate);
+=======
+//		// 시큐리티에 담긴 로그인된 유저 정보
+//		CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+//		log.info(user.getAuthorities().toString());
+//		
+//		// 로그인한 사원이 'ROLE_ADMIN', 'ROLE_MANAGER'일 때만 관리 메뉴 출력
+//		String empNo = user.getUsername();
+//		String auth = workService.adminCheck(empNo);
+//		
+//		if(auth.equals("ROLE_ADMIN")||auth.equals("ROLE_MANAGER")) {
+//			MenuVO menu2 = new MenuVO("구성원 근무", "/work/teamworklist");
+//			MenuVO menu3 = new MenuVO("관리", "/work/workmanagelist");
+//			menuList = Arrays.asList(menu1, menu2, menu3);
+//		} else {
+//			MenuVO menu2 = new MenuVO("내 부서 근무", "/work/myteamworklist");
+//			menuList = Arrays.asList(menu1, menu2);
+//		}
+//				
+//		
+//		// 서브메뉴 리스트
+//		MenuVO menu4 = new MenuVO("근무 기록", "/work/myworklist");
+//		List<MenuVO> submenuList = Arrays.asList(menu4);
+//		model.addAttribute("submenuList", submenuList);
+//		
+//		// 현재 주소 보내주기
+//		String currentURL = request.getRequestURI();
+//		request.setAttribute("currentURL", currentURL);
+		
+		return "work/myWorkList";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/myworklist", method = RequestMethod.POST)
+	public List<WorkVO> workList(@RequestBody Map<String, String> map, Model model) {
+		
+		String firstDate = map.get("firstDate").toString();
+		String lastDate = map.get("lastDate").toString();
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111: {}", firstDate);
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111: {}", lastDate);
+		
+		// 시큐리티에 담긴 로그인된 유저 정보
+		CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		
+		String empNo = user.getUsername();
+		
+		HashMap<String, String> workMap = new HashMap<String, String>();
+		workMap.put("firstDate", firstDate);
+		workMap.put("lastDate", lastDate);
+		workMap.put("empNo", empNo);
+		
+		List<WorkVO> workList = workService.workList(workMap);
+		
+		return workList;
+	}
+	
+
+	/**
+	 * (관리자)구성원 전체의 근무기록 리스트 조회 메소드
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_MEMBER')")
+	@RequestMapping(value = "/teamworklist", method = RequestMethod.GET)
+	public String teamWorkList(Model model, HttpServletRequest request) {
+		log.info("teamWorklist() 실행...!");
+		
+		// 메인메뉴 리스트
+//		MenuVO menu1 = new MenuVO("내 근무", "/work/myworklist");
+		MenuVO menu1 = new MenuVO("구성원 근무", "/work/teamworklist");
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		model.addAttribute("menuList", menuList);
+		
+//		// 시큐리티에 담긴 로그인된 유저 정보
+//		CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+//		log.info(user.getAuthorities().toString());
+//		List<MenuVO> menuList = null;
+//		
+//		// 로그인한 사원이 'ROLE_ADMIN', 'ROLE_MANAGER'일 때만 관리 메뉴 출력
+//		String empNo = user.getUsername();
+//		String auth = workService.adminCheck(empNo);
+//		
+//		if(auth.equals("ROLE_ADMIN")||auth.equals("ROLE_MANAGER")) {
+//			MenuVO menu3 = new MenuVO("관리", "/work/workmanagelist");
+//			menuList = Arrays.asList(menu1, menu2, menu3);
+//		} else {
+//			menuList = Arrays.asList(menu1, menu2);
+//		}
+//				
+//		model.addAttribute("menuList", menuList);
+//		
+//		// 서브메뉴 리스트
+//		MenuVO menu4 = new MenuVO("구성원 근무", "/work/teamworklist");
+//		List<MenuVO> submenuList = Arrays.asList(menu4);
+//		model.addAttribute("submenuList", submenuList);
+//		
+//		// 현재 주소 보내주기
+//		String currentURL = request.getRequestURI();
+//		request.setAttribute("currentURL", currentURL);
+		
+///////////////////// 
+		List<EmpVO> empList = workService.empList();
+		model.addAttribute("empList", empList);
+		
+		List<CommonVO> comList = commonService.selectAllCommon();
+		model.addAttribute("comList", comList);
+
+		return "work/teamWorkList";
+	}
+	
+//########################################################################################################33	
+	@ResponseBody
+	@RequestMapping(value = "/teamworklist", method = RequestMethod.POST)
+	public PaginationInfoVO<WorkVO> teamWorkList(
+			@RequestBody HashMap<String, String> map) {
+		
+		String firstDate = map.get("firstDate").toString();
+		String lastDate = map.get("lastDate").toString();
+		String selectDept = map.get("selectDept").toString();
+//		int page = Integer.parseInt(map.get("page").toString());
+		
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111:  {}", firstDate);
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111: {}", lastDate);
+		log.info("넘어온 부서이름 !!!!!!!!!!!!!!!!!!!!!: {}", selectDept);
+//		log.info("넘어온 페이지 !!!!!!!!!!!!!!!!!!!!!: {}", page);
+		
+//		List<WorkVO> teamList = workService.teamWorkList(map);
+
+		
+		PaginationInfoVO<WorkVO> pagingVO = new PaginationInfoVO<WorkVO>();
+		
+		// 페이징을 위한 검색 형태 만들기
+		pagingVO.setFirstDate(firstDate);
+		pagingVO.setLastDate(lastDate);
+		pagingVO.setSelectDept(selectDept);
+		
+		int page = Integer.parseInt(map.get("page"));
+		pagingVO.setCurrentPage(page); // startRow, endRow, startPage, endPage가 결정됨
+
+		int totalRecord = workService.selectTeamWorkCount(pagingVO); 	// 총 게시글 수
+		
+		pagingVO.setTotalRecord(totalRecord);	// totalPage 결정
+		List<WorkVO> dataList = workService.selectTeamWorkList(pagingVO);
+		pagingVO.setDataList(dataList);
+		
+		
+		return pagingVO;
+	}
+//########################################################################################################33	
+	
+	
+	/**
+	 * (사원)나와 같은 팀에 속한 구성원의 근무기록 리스트 조회 메소드
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_MEMBER')")
+	@RequestMapping(value = "/myteamworklist", method = RequestMethod.GET)
+	public String myTeamWorkList(Model model, HttpServletRequest request) {
+		log.info("myteamworklist() 실행...!");
+		
+		// 메인메뉴 리스트
+		MenuVO menu1 = new MenuVO("우리 부서 근무", "/work/myteamworklist");
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		model.addAttribute("menuList", menuList);
+		
+//		// 시큐리티에 담긴 로그인된 유저 정보
+		CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+//		log.info(user.getAuthorities().toString());
+//		List<MenuVO> menuList = null;
+//		
+//		// 로그인한 사원이 'ROLE_ADMIN', 'ROLE_MANAGER'일 때만 구성원 전체 근무 메뉴와 관리 메뉴 출력
+//		String empNo = user.getUsername();
+//		String auth = workService.adminCheck(empNo);
+//		
+//		if(auth.equals("ROLE_ADMIN")||auth.equals("ROLE_MANAGER")) {
+//			MenuVO menu2 = new MenuVO("구성원 근무", "/work/teamworklist");
+//			MenuVO menu3 = new MenuVO("관리", "/work/workmanagelist");
+//			menuList = Arrays.asList(menu1, menu2, menu3);
+//		} else {
+//			MenuVO menu2 = new MenuVO("내 부서 근무", "/work/myteamworklist");
+//			menuList = Arrays.asList(menu1, menu2);
+//		}
+//				
+//		model.addAttribute("menuList", menuList);
+//		
+//		// 서브메뉴 리스트
+//		MenuVO menu4 = new MenuVO("부서 구성원 근무", "/work/myteamworklist");
+//		List<MenuVO> submenuList = Arrays.asList(menu4);
+//		model.addAttribute("submenuList", submenuList);
+//		
+//		// 현재 주소 보내주기
+//		String currentURL = request.getRequestURI();
+//		request.setAttribute("currentURL", currentURL);
+//		
+///////////////////// 
+		String deptCode = user.getEmp().getEmpDept();
+		model.addAttribute("deptCode", deptCode);
+		
+		List<EmpVO> empList = workService.empList();
+		model.addAttribute("empList", empList);
+		
+		List<CommonVO> comList = commonService.selectAllCommon();
+		model.addAttribute("comList", comList);
+
+		return "work/myTeamWorkList";
+	}
+	
+	
+	/**
+	 * 관리자가 사원의 근무 기록을 주별로 조회할 수 있는 페이지 
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')")
+	@RequestMapping(value = "/workmanagelist", method = RequestMethod.GET)
+	public String workManageList(Model model, HttpServletRequest request) {
+		log.info("workManage GET() 실행...!");
+		
+		// 메인메뉴 리스트
+//		MenuVO menu1 = new MenuVO("내 근무", "/work/myworklist");
+//		MenuVO menu2 = new MenuVO("구성원 근무", "/work/teamworklist");
+		MenuVO menu1 = new MenuVO("근무 조회", "/work/workmanagelist");
+		
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		
+		model.addAttribute("menuList", menuList);
+		
+//		// 서브메뉴 리스트
+//		MenuVO menu4 = new MenuVO("근무 조회", "/work/workmanagelist");
+//		MenuVO menu5 = new MenuVO("근무 관리", "/work/workmanage");
+//		List<MenuVO> submenuList = Arrays.asList(menu4, menu5);
+//		model.addAttribute("submenuList", submenuList);
+//		
+//		// 현재 주소 보내주기
+//		String currentURL = request.getRequestURI();
+//		request.setAttribute("currentURL", currentURL);
+		
+/////////////////////////////////////////////////////////////////////////////		
+		List<EmpVO> empList = workService.empList();
+		model.addAttribute("empList", empList);
+		List<CommonVO> comList = commonService.selectAllCommon();
+		model.addAttribute("comList", comList);
+		
+		return "work/workManageList";
+	}
+	
+	
+	
+//####################################################################################	
+	
+	@ResponseBody
+	@RequestMapping(value = "/workmanagelist", method = RequestMethod.POST)
+	public PaginationInfoVO<WorkVO> workManageList(@RequestBody HashMap<String, String> map) {
+		
+		String firstDate = map.get("firstDate").toString();
+		String lastDate = map.get("lastDate").toString();
+		String selectDept = map.get("selectDept").toString();
+		
+		log.info("넘어온 날짜!!!!!!!!!!1 : {} ", firstDate);
+		log.info("넘어온 날짜 !!!!!!!!!!!!!: {}", lastDate);
+		log.info("넘어온 부서이름 !!!!!!!!!!1: {}", selectDept);
+		
+		PaginationInfoVO<WorkVO> pagingVO = new PaginationInfoVO<WorkVO>();
+		
+		// 페이징을 위한 검색 형태 만들기
+		pagingVO.setFirstDate(firstDate);
+		pagingVO.setLastDate(lastDate);
+		pagingVO.setSelectDept(selectDept);
+		
+		int page = Integer.parseInt(map.get("page"));
+		pagingVO.setCurrentPage(page); // startRow, endRow, startPage, endPage가 결정됨
+
+		int totalRecord = workService.selectWorkManageCount(pagingVO); 	// 총 게시글 수
+		
+		pagingVO.setTotalRecord(totalRecord);	// totalPage 결정
+		List<WorkVO> dataList = workService.selectWorkManageList(pagingVO);
+		pagingVO.setDataList(dataList);
+		
+		
+		return pagingVO;
+		
+//		List<WorkVO> workManageList = workService.workManageList(map);
+		
+//		return workManageList;
+	}
+	
+	
+	/**
+	 * 관리자가 근무 조회 페이지에서 사원 각각의 상세 근무 내역을 조회할 수 있는 페이지
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')")
+	@RequestMapping(value = "/workdetail")
+	public String workDetail(
+			Model model, 
+			HttpServletRequest request, 
+			@RequestParam(name = "empNo")String empNo,
+			@RequestParam(name = "firstDate")String firstDate,
+			@RequestParam(name = "lastDate")String lastDate
+			) {
+		log.info("workDetail() 실행...!");
+		
+		// 메인메뉴 리스트
+//		MenuVO menu1 = new MenuVO("내 근무", "/work/myworklist");
+//		MenuVO menu2 = new MenuVO("구성원 근무", "/work/teamworklist");
+		MenuVO menu1 = new MenuVO("근무 상세", "/work/workdetail");
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		model.addAttribute("menuList", menuList);
+		
+//		// 서브메뉴 리스트
+//		MenuVO menu4 = new MenuVO("근무 조회", "/work/workmanagelist");
+//		MenuVO menu5 = new MenuVO("근무 관리", "/work/workmanage");
+//		List<MenuVO> submenuList = Arrays.asList(menu4, menu5);
+//		model.addAttribute("submenuList", submenuList);
+//		
+//		// 현재 주소 보내주기
+//		String currentURL = request.getRequestURI();
+//		request.setAttribute("currentURL", currentURL);
+		
+//////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111: " + firstDate);
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111: " + lastDate);
+		
+		HashMap<String, String> workMap = new HashMap<String, String>();
+		workMap.put("empNo", empNo);
+		workMap.put("firstDate", firstDate);
+		workMap.put("lastDate", lastDate);
+		
+		List<WorkVO> workList = workService.selectWork(workMap);
+		log.info("workDetail() 실행!!!!!!!!!!!!!!");
+		model.addAttribute("workList", workList);
+		return "work/workDetail";
+	}
+
+	
+	/**
+	 * 초과근무 신청에 대해 승인/대기/반려 상태를 확인하고 처리할 수 있는 페이지
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')")
+	@RequestMapping(value = "/workmanage", method = RequestMethod.GET)
+	public String workManage(Model model, HttpServletRequest request) {
+		log.info("workManage() 실행...!");
+		
+		// 메인메뉴 리스트
+//		MenuVO menu1 = new MenuVO("내 근무", "/work/myworklist");
+//		MenuVO menu2 = new MenuVO("구성원 근무", "/work/teamworklist");
+		MenuVO menu1 = new MenuVO("근무 관리", "/work/workmanage");
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		model.addAttribute("menuList", menuList);
+		
+//		// 서브메뉴 리스트
+//		MenuVO menu4 = new MenuVO("근무 조회", "/work/workmanagelist");
+//		MenuVO menu5 = new MenuVO("근무 관리", "/work/workmanage");
+//		List<MenuVO> submenuList = Arrays.asList(menu4, menu5);
+//		model.addAttribute("submenuList", submenuList);
+//		
+//		// 현재 주소 보내주기
+//		String currentURL = request.getRequestURI();
+//		request.setAttribute("currentURL", currentURL);
+		
+///////////////////////////////////////////////		
+//		List<EmpVO> empList = workService.empList();
+//		model.addAttribute("empList", empList);
+//		List<CommonVO> comList = commonService.selectAllCommon();
+//		model.addAttribute("comList", comList);
+		
+//		List<WorkVO> workApplyList = workService.workApplyList();
+//		model.addAttribute("workApplyList", workApplyList);
+		
+		return "work/workManage";
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/workmanage", method = RequestMethod.POST)
+	public List<WorkVO> workManage(@RequestBody HashMap<String, String> map) {
+		
+		String firstDate = map.get("firstDate").toString();
+		
+		log.info("넘어온 날짜 !!!!!!!!!!!!!!!!!!!!!111: " + firstDate);
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		
 		List<WorkVO> workManageList = workService.workApplyList(map);
 		

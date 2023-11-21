@@ -3,7 +3,12 @@
 <html>
 <head>
     <meta charset="utf-8">
+<<<<<<< HEAD
     <title></title>
+=======
+    <title>마커와 텍스트 표시하기</title>
+    
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 </head>
 <body>
 <!-- 이미지 지도를 표시할 div 입니다 -->

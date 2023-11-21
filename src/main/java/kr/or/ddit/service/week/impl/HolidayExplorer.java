@@ -12,7 +12,11 @@ import org.json.XML;
 
 public class HolidayExplorer {
 
+<<<<<<< HEAD
 	private final String KEY = "KEY";
+=======
+	private final String KEY = "GiqjOZXzrTKODjQj00XNDdRXAnwOofx4I3xEhaEzav51kPf7zGTGrRP1Dm%2BJEBC4MsEgsjvuT2BLslLq6MgQ0Q%3D%3D";
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 	public JSONObject getHolidayExplorer(String solYear, String solMonth) throws IOException {
 		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"); /* URL */

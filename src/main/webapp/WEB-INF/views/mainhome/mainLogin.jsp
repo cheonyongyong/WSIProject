@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -69,6 +70,67 @@ $(function() {
 
 	adminBtn.on("click", function() {
 		cusRnum.val("admin");
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>로그인</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-lg-12 p-5" align="center">
+        	<form action="/mainlogincheck" method="post" id="mainLoginForm" onsubmit="return frm_check();">
+        		<div class="form-group row">
+					<label for="cusPw" class="col-lg-4 col-form-label" style="text-align: end;">아이디</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusRnum" name="cusRnum" maxlength="10" placeholder="아이디를 입력해주세요.">
+					</div>
+				</div>
+        		<div class="form-group row">
+					<label for="cusPw" class="col-lg-4 col-form-label" style="text-align: end;">비밀번호</label>
+					<div class="col-lg-5">
+						<input type="password" class="form-control" id="cusPw" name="cusPw" maxlength="16" placeholder="비밀번호를 입력해주세요.">
+					</div>
+				</div>
+				<div class="logSave">
+					<input type="checkbox" class="save_id" name="checkId" id="saveId" >
+    				<label for="saveId" style="cursor:pointer;">아이디 저장</label>
+				</div>
+        	<br>
+        	<div align="center" style="margin-bottom: 10px;">
+			    <button type="button" class="btn btn-light" id="outoBtn" style="width: 500px;">자동완성</button>
+		    </div>
+        	<div align="center" style="margin-bottom: 50px;">
+			    <button type="button" class="btn btn-primary" id="loginBtn" style="width: 500px;">로그인</button>
+		    </div>
+		    <div>
+				<a href="/findpwform">비밀번호를 잊으셨나요?</a><br>
+				<a href="/register">WSI 가입하기</a>
+			</div>
+        	<sec:csrfInput/>
+        	</form>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>  
+<script type="text/javascript">
+$(function() {
+	var loginBtn = $("#loginBtn");
+	var outoBtn = $("#outoBtn");
+	var mainLoginForm = $("#mainLoginForm");
+	var cusRnum = $("#cusRnum");
+	var cusPw = $("#cusPw");
+	
+	outoBtn.on("click", function() {
+		cusRnum.val("2128173385");
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		cusPw.val("aa1234**");
 	});
 	

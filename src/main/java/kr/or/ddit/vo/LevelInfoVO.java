@@ -8,6 +8,10 @@ public class LevelInfoVO {
 	private String levelName;
 	private String levelMemo;
 	private Long levelFee;
+<<<<<<< HEAD
 	private String levelVol;
+=======
+	private Long levelVol;
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 }

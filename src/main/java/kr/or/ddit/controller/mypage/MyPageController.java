@@ -50,6 +50,7 @@ public class MyPageController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_MANAGER','ROLE_ADMIN')")
 	@RequestMapping(value="/main", method = RequestMethod.GET)
+<<<<<<< HEAD
 	public String main(Model model) {
 		log.info("main 페이지 실행...!");
 		
@@ -100,6 +101,61 @@ public class MyPageController {
         
 		
 		
+=======
+	public String main() {
+		log.info("main 페이지 실행...!");
+		
+		
+		return "mypage/main";
+	}
+	
+	@RequestMapping(value="/download", method = RequestMethod.GET)
+	public String downDocument(@RequestParam String libFileNo) {
+		
+		return "";
+	}
+	
+	@RequestMapping(value="/page", method = RequestMethod.GET, consumes = "application/json")
+	public ResponseEntity<InfoVO> infoPage(Model model){
+		
+		MenuVO menu1 = new MenuVO("마이페이지", "");
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EmpVO empVO = user.getEmp();
+		
+		InfoVO infoVO = mypageService.detail(empVO);
+		List<FamilyVO> famList = mypageService.famdetail(empVO);
+		List<CareerVO> carrList = mypageService.carrDetail(empVO);
+		List<AcadVO> acadList = mypageService.acadDetail(empVO);
+		
+		infoVO.setFamList(famList);
+		infoVO.setCarrList(carrList);
+		infoVO.setAcadList(acadList);
+		
+		model.addAttribute("menuList", menuList);
+		log.info("infoVO : " + infoVO);
+		return new ResponseEntity<InfoVO>(infoVO, HttpStatus.OK);
+	}
+	
+	
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_MANAGER','ROLE_ADMIN')")
+	@RequestMapping(value="/other", method = RequestMethod.GET)
+	public String myPage(Model model, @RequestParam String empNo, HttpServletRequest request) {
+		
+		MenuVO menu1 = new MenuVO("마이페이지", "");
+		List<MenuVO> menuList = Arrays.asList(menu1);
+		EmpVO empVO = new EmpVO();
+		empVO.setEmpNo(empNo);
+		EmpVO empVO2 = mypageService.selectEmpOne(empVO);
+		
+		// 사원정보
+		InfoVO emp = mypageService.detail(empVO2);
+		
+        List<FamilyVO> empFam = mypageService.famdetail(empVO2);
+        List<AcadVO> empAcad = mypageService.acadDetail(empVO2);
+        List<CareerVO> empCarr = mypageService.carrDetail(empVO2);
+        
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
         emp.setFamList(empFam);
         emp.setAcadList(empAcad);
         emp.setCarrList(empCarr);

@@ -23,7 +23,11 @@
   		, (select com_name from common where com_code = emp_dept) emp_dept 
   		, (select com_name from common where com_code = emp_pos) emp_pos
   		, (select com_name from common where com_code = emp_rank) emp_rank 
+<<<<<<< HEAD
   		, (select com_name from common where com_code = emp_job) emp_job
+=======
+  		, (select com_name from common where com_code = emp_dept) emp_job
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
   		, emp_ffile
 	FROM emp
     where emp_no = #{empNo}

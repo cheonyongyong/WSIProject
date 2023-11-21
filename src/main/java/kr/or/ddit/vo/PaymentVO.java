@@ -26,6 +26,7 @@ public class PaymentVO {
 	// LevelInfo
 	private String levelMemo;
 	private long levelFee;
+<<<<<<< HEAD
 	private String levelVol;
 	
 //	private String funcName;
@@ -49,6 +50,29 @@ public class PaymentVO {
 	private int funcRatio;
 	// sales 매출
 	private int salesCnt;
+=======
+	private long levelVol;
+	
+//	private String funcName;
+	private String[] funcNames;
+	// FuncLevel
+	List<FuncLevelVO> funcLevelList;
+	
+	// FuncInfo
+	private String funcName;	// 기능설명
+	private String funcMemo;	// 기능설명
+	private Long funcFee;		// 가격 
+
+	
+	// 통계 차트!!!!!
+	// 레벨 갯수
+	private int levelCnt;
+	private int levelRatio;
+	// 기능 갯수
+	private int funcCnt;
+	private int funcRatio;
+	// sales 매출
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	private String month;
 	private long totalCnt;
 }

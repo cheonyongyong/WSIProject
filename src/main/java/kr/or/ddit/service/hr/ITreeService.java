@@ -15,6 +15,9 @@ public interface ITreeService {
 
 	public List<TreeVO> getJobList();
 
+<<<<<<< HEAD
 	List<TreeVO> getList2();
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

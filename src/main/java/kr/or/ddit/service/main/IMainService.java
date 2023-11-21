@@ -40,9 +40,13 @@ public interface IMainService {
 
 	public PaymentVO paymentDetail(String payCode);
 
+<<<<<<< HEAD
 	public void sendMail(HttpServletRequest req, CustomerVO customer) throws MessagingException, UnsupportedEncodingException;
 
 	public CustomerVO selectMemberImage(String cusRnum);
+=======
+	public void sendMail(CustomerVO customer) throws MessagingException, UnsupportedEncodingException;
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 
 

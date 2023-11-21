@@ -56,6 +56,7 @@ public interface MainAdminMapper {
 
 	public List<PaymentVO> selectSales();
 
+<<<<<<< HEAD
 	public List<CustomerVO> selectCusEmp();
 
 	// 게시판
@@ -63,5 +64,11 @@ public interface MainAdminMapper {
 
 	public List<InqBoardVO> selectBoardList(PaginationInfoVO<InqBoardVO> pagingVO);
 
+=======
+	// 게시판
+	public int selectBoardCount(PaginationInfoVO<InqBoardVO> pagingVO);
+
+	public List<InqBoardVO> selectBoardList(PaginationInfoVO<InqBoardVO> pagingVO);
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 }

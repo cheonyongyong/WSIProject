@@ -17,7 +17,10 @@ public class HrDetailVO {
 		private String empNo; //사번
 		private String hrType; //발령종류
 		private Date hrDate; //처리일자
+<<<<<<< HEAD
 		private String hrHistory; //전 부서, 전 직책
 		private String empDept;
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		
 }

@@ -48,6 +48,7 @@ public interface HrMapper {
 	public String selectHrCode();
 	public void insertProfile(AttachVO attachVO);
 	public String selectEmpNo();
+<<<<<<< HEAD
 //	public String selectFileNo();
 //	public void empProfileUpdate(EmpVO empVO);
 	public List<HrDetailVO> selectMhr3DeptList(PaginationInfoVO<HrDetailVO> pagingVO);
@@ -66,5 +67,21 @@ public interface HrMapper {
 	public void updateHrHxDetail(HrDetailVO hrDetailVO);
 	public void insertHrHistoryPos(HrDetailVO hrDetailVO);
 	public void updateHrHxDetailPos(HrDetailVO hrDetailVO);
+=======
+	public String selectFileNo();
+	public void empProfileUpdate(EmpVO empVO);
+	public List<HrDetailVO> selectMhr3DeptList(PaginationInfoVO<HrDetailVO> pagingVO);
+	public int modifyMemo(HrHxVO hrHxVO);
+	public List<EmpVO> gridStatList();
+	public List<EmpVO> gridStatList2();
+	public List<EmpVO> gridStatList3();
+	public List<EmpVO> gridStatList4();
+	public EmpVO selectOne(EmpVO empVO);
+	public List<EmpVO> selectAll();
+	public List<EmpVO> excelMhr1List();
+	public CustomerVO selectCus();
+	public AttachVO selectAttach(CustomerVO customerVO);
+	public List<EmpVO> excelGhrList();
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -43,6 +44,50 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="vacation"> &nbsp;&nbsp;&nbsp; 휴가관리<br>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="pay"> &nbsp;&nbsp;&nbsp; 급여관리<br>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="document"> &nbsp;&nbsp;&nbsp; 기안·결재<br>
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>레벨, 기능 선택</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="container pt-5 pb-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2><b>1. Level 선택</b></h2>
+                            <br>
+                            <p>level에 따라 자료실의 용량이 달라집니다.<br> 원하는 용량에 따라 선택해보세요!</p>
+                            <br>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="levelName" value="level1" checked="checked"> &nbsp;&nbsp;&nbsp; Level 1 : 자료실 용량 1GB<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="levelName" value="level2"> &nbsp;&nbsp;&nbsp; Level 2 : 자료실 용량 5GB<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="levelName" value="level3"> &nbsp;&nbsp;&nbsp; Level 3 : 자료실 용량 10GB
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2><b>2. 기능 선택</b></h2>
+                            <br>
+                            <p>필요한 기능만 선택해보세요.<br>각 회사의 니즈에 따라 달라지는 맞춤형 인사시스템이 됩니다.</p>
+                            <br>
+                            <div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" disabled="disabled"> &nbsp;&nbsp;&nbsp; 기본 제공 : 인사관리, 채용관리, 경영관리, 자료실<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="work"> &nbsp;&nbsp;&nbsp; 근태관리<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="vacation"> &nbsp;&nbsp;&nbsp; 휴가관리<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="pay"> &nbsp;&nbsp;&nbsp; 급여관리<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" name="funcName" value="document"> &nbsp;&nbsp;&nbsp; 문서함<br>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
                             </div>
                         </div>
                     </div>

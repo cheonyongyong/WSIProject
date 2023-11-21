@@ -60,6 +60,7 @@
 										</div>
 									</div>
 								</div>
+<<<<<<< HEAD
 								<div class="col-md-9 d-flex justify-content-bottom justify-content-end">
 									<div class="align-items-end justify-content-bottom pt-4 ">
 										<div class="d-flex justify-content-end justify-content-bottom">
@@ -153,6 +154,98 @@
 									</nav>
 								</div>
 							</div>
+=======
+								<div class="col-md-9">
+									<div class="d-flex justify-content-end">
+										<form method="post" id="searchForm">
+											<ul class="nav nav-pills">
+												<li class="nav-item"><input type="hidden" name="page"
+													id="page" /> <select class="form-select" name="searchType">
+														<option value="both"
+															<c:if test="${searchType eq 'both' }">selected</c:if>>모두</option>
+														<option value="title"
+															<c:if test="${searchType eq 'title' }">selected</c:if>>제목</option>
+														<option value="writer"
+															<c:if test="${searchType eq 'writer' }">selected</c:if>>작성자</option>
+												</select></li>
+												<li class="nav-item"><input type="text"
+													name="searchWord" value="${searchWord }"
+													class="form-control float-right" placeholder="검색어를 입력하세요">
+												</li>
+												<li class="nav-item">
+													<div class="input-group-append">
+														<button type="submit" class="btn btn-primary">
+															<i class="fas fa-search"></i>검색
+														</button>
+													</div>
+												</li>
+												<sec:csrfInput />
+											</ul>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="gridjs-wrapper" style="height: auto;">
+								<table role="grid" class="gridjs-table text-center"
+									style="height: auto;">
+									<thead class="gridjs-thead">
+										<tr class="gridjs-tr">
+											<th data-column-id="title" class="gridjs-th">
+												<div class="gridjs-th-content">제목</div>
+											</th>
+											<th data-column-id="gname" class="gridjs-th">
+												<div class="gridjs-th-content">작성자</div>
+											</th>
+											<th data-column-id="mname" class="gridjs-th">
+												<div class="gridjs-th-content">업로드일자</div>
+											</th>
+											<th data-column-id="wdate" class="gridjs-th">
+												<div class="gridjs-th-content">다운로드 수</div>
+											</th>
+											<th data-column-id="mdate" class="gridjs-th">
+												<div class="gridjs-th-content">다운로드</div>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="gridjs-tbody">
+										<c:set value="${pagingVO.dataList }" var="libList" />
+										<c:choose>
+											<c:when test="${empty libList }">
+												<tr class="gridjs-tr text-center">
+													<td data-column-id="title" class="gridjs-td" colspan="7">해당
+														조회 정보가 존재하지 않습니다</td>
+												</tr>
+											</c:when>
+											<c:otherwise>
+												<c:forEach items="${libList }" var="lib">
+													<tr class="gridjs-tr">
+														<td data-column-id="title" class="gridjs-td">${lib.libTitle }</td>
+														<td data-column-id="gname" class="gridjs-td">${lib.empName }</td>
+														<td data-column-id="wdate" class="gridjs-td"><fmt:formatDate
+																value="${lib.libUpddate }" pattern="yyyy.MM.dd(E) HH:mm" /></td>
+														<td data-column-id="mdate" class="gridjs-td">${lib.libDowncount }</td>
+														<td data-column-id="mname" class="gridjs-td">
+															<div class="row icon-demo-content">
+																<div class="ms-auto">
+																	<a href="/library/download?libFileNo=${lib.libFileNo }">
+																		<i class="bx bx-download" data-feather="download"></i>
+																	</a>
+																</div>
+															</div> <!-- 												</form> -->
+														</td>
+													</tr>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</tbody>
+								</table>
+							</div>
+							<div class="row g-0 text-center text-sm-start">
+								<div class="col-sm">
+									<nav aria-label="Page navigation example" id="pagingArea">
+										${pagingVO.pagingHTML }</nav>
+								</div>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 							</div>
 						</div>
 					</div>

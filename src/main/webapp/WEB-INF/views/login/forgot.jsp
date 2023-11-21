@@ -10,6 +10,7 @@
     <link href="${pageContext.request.contextPath }/resources/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
     <!-- <body data-layout="horizontal"> -->
+<<<<<<< HEAD
 <style>
 .test4{background-size: auto; background-repeat: no-repeat; background-position: center;}
 
@@ -115,6 +116,127 @@ $(function(){
 			alertify.warning("이메일을 입력해주세요.");
 			return false;
 		}
+=======
+
+<div class="authentication-bg min-vh-100">
+    <div class="bg-overlay bg-white"></div>
+    <div class="container">
+        <div class="d-flex flex-column min-vh-100 px-3 pt-4">
+            <div class="row justify-content-center my-auto">
+                <div class="col-lg-10">
+                    
+                        <div class="py-5">
+                            <div class="card auth-cover-card overflow-hidden">
+                                <div class="row g-0">
+                                    <div class="col-lg-6">
+                                        <div class="auth-img">
+                                        </div>                                            
+                                    </div><!-- end col -->
+                                    <div class="col-lg-6">
+                                        <div class="p-4 p-lg-5 bg-primary h-100 d-flex align-items-center justify-content-center">
+                                            <div class="w-100">
+                                                <div class="mb-4 mb-md-5">
+                                                    <a href="index.html" class="d-block auth-logo">
+                                                        <img src="${pageContext.request.contextPath }/resources/assets/images/logo-light.png" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="text-white-50 mb-4">
+                                                	<c:if test="${status ne 'p'}"><h5 class="text-white">사번 찾기</h5></c:if>
+                                                	<c:if test="${status eq 'p'}"><h5 id="title" class="text-white">패스워드 재설정</h5></c:if>
+                                                    
+                                                    <p>아래의 정보를 입력하여 주세요.</p>
+                                                </div>
+                                                <form action="/forgotid" method="post" id="forgotForm">
+                                                	<c:if test="${status eq 'p'}">                                         
+                                                     <div class="form-floating form-floating-custom mb-3">
+                                                         <input type="text" class="form-control" id="empNo" name="empNo" value="199404001" placeholder="Enter No">
+                                                         <label for="input-id">사원번호</label>
+                                                         <div class="form-floating-icon">
+                                                             <i class="uil uil-padlock"></i>
+                                                         </div>
+                                                     </div>
+                                                    </c:if>     
+                                               		<div class="form-floating form-floating-custom mb-3">
+                                                        <input type="text" class="form-control" id="empName" name="empName" value="천용" placeholder="Enter User Name">
+                                                        <label for="input-username">이름</label>
+                                                        <div class="form-floating-icon">
+                                                            <i class="uil uil-user"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-floating form-floating-custom mb-3">
+                                                        <input type="text" class="form-control" id="empEmail" name="empEmail" value="cjsdyd8911@naver.com" placeholder="Enter Email">
+                                                        <label for="input-email">이메일</label>
+                                                        <div class="form-floating-icon">
+                                                            <i class="uil uil-envelope-alt"></i>
+                                                        </div>
+                                                    </div>
+<!--                                                             <div class="text-white-50"> -->
+<!--                                                                 <p>By registering you agree to the Dashonic <a href="#" class="text-white">Terms of Use</a></p> -->
+<!--                                                             </div> -->
+                                                    <div class="mt-4">
+                                                        <button class="btn btn-info w-100" type="button" id="okBtn">확인</button>
+                                                    </div>
+                                                    <sec:csrfInput/>
+                                                </form><!-- end form -->
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                </div>
+                            </div><!-- end card-->
+                        <div class="mt-5 text-center text-muted">
+                            <p>Already have an account ? <a href="auth-signin-cover.html" class="fw-medium text-decoration-underline"> Signin </a></p>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center text-muted p-4">
+                        <p class="mb-0">&copy; <script>document.write(new Date().getFullYear())</script> Dashonic. Crafted with <i class="mdi mdi-heart text-danger"></i> by Pichforest</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end container -->
+</div>
+<!-- end authentication section -->
+
+<!-- JAVASCRIPT -->
+<script src="${pageContext.request.contextPath }/resources/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/libs/metismenujs/metismenujs.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/assets/libs/feather-icons/feather.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	var forgotForm = $("#forgotForm");
+	var okBtn = $("#okBtn");
+	
+	okBtn.on("click", function(){
+		var empNo = $("#empNo").val();
+		var empName = $("#empName").val();
+		var empEmail = $("#empEmail").val();
+		var title = $("#title").html();
+		
+		if(title == "패스워드 재설정"){
+			if(empNo == null || empNo == ""){
+				alert("사번을 입력해주세요.");
+				return false;
+			}
+			forgotForm.attr("action", "/forgotpw");
+		}
+		if(empName == null || empName == ""){
+			alert("이름을 입력해주세요.");
+			return false;
+		}
+		if(empEmail == null || empEmail == ""){
+			alert("이메일을 입력해주세요.");
+			return false;
+		}
+		
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		
 		forgotForm.submit();
 	});

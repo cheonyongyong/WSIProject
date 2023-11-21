@@ -12,7 +12,10 @@ public class WorkVO {
 	
 	public String empNo;
 	public String empName;
+<<<<<<< HEAD
 	private String empProfile;
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	public String deptName;
 	public int workSum;
 	

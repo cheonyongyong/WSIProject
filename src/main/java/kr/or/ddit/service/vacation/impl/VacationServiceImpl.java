@@ -93,6 +93,7 @@ public class VacationServiceImpl implements IVacationService {
 		return vacMapper.selectAllvacEmp();
 	}
 
+<<<<<<< HEAD
 	@Override
 	public ServiceResult allVacationChange() {
 		vacMapper.allVacationChange();
@@ -100,6 +101,8 @@ public class VacationServiceImpl implements IVacationService {
 		return ServiceResult.OK;
 	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 	
 

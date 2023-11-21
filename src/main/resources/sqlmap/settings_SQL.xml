@@ -18,6 +18,7 @@
 	</select>
 
 	<select id="selectCus" parameterType="string" resultType="settingsVO">
+<<<<<<< HEAD
 		select cus.cus_rnum, cus.cus_com, cus.cus_name,
 			(select attach.file_savepath from attach where cus.cus_logo = attach.file_no) cus_logo,
 		    (select attach.file_savepath from attach where cus.cus_image = attach.file_no) cus_image, 
@@ -241,4 +242,151 @@
 				    #{parent} 
 				)
 	</update>
+=======
+		select
+			cus_rnum, cus_pw, cus_com, cus_name,
+            (select file_savepath from attach, customer where attach.file_no = customer.cus_logo and cus_rnum = #{cusRnum}) cus_logo,
+            cus_addr, cus_addr2, cus_tel, cus_emp, cus_email, cus_birth,
+            (select file_savepath from attach, customer where attach.file_no = customer.cus_logo and cus_rnum = #{cusRnum}) cus_image,
+            (select file_savepath from attach, customer where attach.file_no = customer.cus_logo and cus_rnum = #{cusRnum}) cus_signature, cus_zip
+		from attach att,
+			(select * from customer where cus_rnum = #{cusRnum}) cus
+		where att.file_no = cus.cus_signature
+	</select>
+	
+	<update id="updateCus" parameterType="settingsVO">
+		update 	customer
+		set 
+			<if test="cusLogo !=  null and cusLogo != ''">
+				cus_logo = #{cusLogo},
+			</if>
+			<if test="cusImage !=  null and cusImage != ''">
+				cus_image = #{cusImage},
+			</if>
+			<if test="cusSignature !=  null and cusSignature != ''">
+				cus_signature = #{cusSignature},
+			</if>
+				cus_emp	= #{cusEmp}
+				, cus_pw = #{cusPw}
+		where cus_rnum = #{cusRnum}
+	</update>
+	
+	<insert id="insertCompFile" parameterType="attachVO">
+		<selectKey keyProperty="fileNo" resultType="string" order="BEFORE">
+			select seq_attach.nextval from dual
+		</selectKey>
+		insert into attach(
+			file_no, file_savepath, file_name, file_orgname, file_size, file_mime, 
+			file_downcount, file_regdate, file_uploader, file_code
+		)values(
+			#{fileNo}, #{fileSavepath}, #{fileName}, #{fileOrgname}, #{fileSize}, #{fileMime}, 
+			0, sysdate, #{fileUploader}, #{fileCode}
+		)
+	</insert>
+	
+<!-- 	<delete id="delCusFile" parameterType="attachVO"> -->
+<!-- 	</delete> -->
+	
+	<insert id="registerVac" parameterType="settingsVO" useGeneratedKeys="true">
+		<selectKey keyProperty="vacCode" resultType="string" order="BEFORE">
+			select seq_vac_set.nextval from dual
+		</selectKey>
+		insert into vac(
+			vac_code, vac_name, vac_cont, vac_amt, vac_gen, vac_wg_pay, vac_cert
+		)values(
+		#{vacCode}, #{vacName}, #{vacCont}, #{vacAmt}, #{vacGen}, #{vacWgPay}, #{vacCert}
+		)
+	</insert>
+	
+	<delete id="deleteVac" parameterType="string">
+		delete from vac
+		where vac_code = #{vacCode}
+	</delete>
+	
+	<select id="empList" resultType="settingsVO">
+		select
+			e.emp_no , emp_name, emp_role
+			, (select com_name from common where com_code = emp_dept) emp_dept
+		FROM emp e, emp_auth a where e.emp_no = a.emp_no
+	</select>
+		
+	<update id="empModifyAuth" parameterType="settingsVO">
+		update  emp_auth
+		set		emp_role = #{empRole}
+		where   1=1
+		and		emp_no = #{empNo}
+	</update>
+	
+	<select id="deptList" resultType="TreeVO">
+		select
+			com_code as id, nvl(to_char(com_parent), '#') as parent, com_name, icon
+		from common
+		where com_upcode = 'a'
+	</select>
+	
+	<select id="searchList" parameterType="TreeVO" resultType="TreeVO">
+		select com_name from common where com_name like '%'||#{searchWord}||'%' and com_upcode = 'a'
+	</select>
+	
+	<select id="posList" resultType="TreeVO">
+		SELECT 
+			com_code as id, NVL(to_char(com_parent), '#') as parent, com_name as text, icon
+		FROM common
+		WHERE 1=1
+		AND COM_UPCODE = 'b'
+	</select>
+
+	<select id="rankList" resultType="TreeVO">
+		SELECT 
+			com_code as id, NVL(to_char(com_parent), '#') as parent, com_name as text, icon
+		FROM common
+		WHERE 1=1
+		AND COM_UPCODE = 'c'
+	</select>
+
+	<select id="jobList" resultType="TreeVO">
+		SELECT 
+			com_code as id, NVL(to_char(com_parent), '#') as parent, com_name as text, icon
+		FROM common
+		WHERE 1=1
+		AND COM_UPCODE = 'd'
+	</select>
+		
+	<insert id="insertEmp" parameterType="EmpVO">
+		INSERT INTO emp (
+		    emp_no
+		    , emp_name
+		    , emp_ename
+		    , emp_gen
+		    , emp_reg1
+		    , emp_reg2
+		    , emp_tel
+		    , emp_addr1
+		    , emp_addr2
+		    , emp_email
+		    , emp_date
+		    , emp_stat
+		    , emp_work
+		    , emp_acct
+		    , emp_bank
+		) VALUES (
+		    #{empNo}
+			, #{empName}
+			, #{empEname}
+			, #{empGen}
+			, #{empReg1}
+			, #{empReg2}
+			, #{empTel}
+			, #{empAddr1}
+			, #{empAddr2}
+			, #{empEmail}
+			, #{empDate}
+			, #{empStat}
+			, #{empWork}
+			, #{empAcct}
+			, #{empBank}
+		)
+	</insert>
+	
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 </mapper>

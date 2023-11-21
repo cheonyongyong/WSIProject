@@ -7,6 +7,7 @@ label {
 }
 </style>
 
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -282,6 +283,277 @@ $(function() {
         	};
 
         let serviceKey ="serviceKey";
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>회원가입</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="col-lg-12 justify-content-md-center spacer" style="margin-bottom: 100px;">
+    <div class="col-lg-12" align="center">
+<!--         <h3 class="mb-5" align="center">WSI 회원가입</h3> -->
+		<div style="background-color: #D0DDF3; width: 30%;">
+			<h5>
+				<b>국세청에 등록된 정상적인 사업자번호만 가입 가능합니다!<br>휴/폐업 사업자번호는 가입하실 수 없습니다!<br>(국세청 사업자등록번호 상태조회 서비스 이용)</b>
+			</h5>
+		</div>
+		<br>		
+        <form action="/register" id="regiForm" class="pb-5 col-lg-10 justify-content-md-center" method="post" enctype="multipart/form-data">
+            <div class="col-lg-10 justify-content-md-center">
+                <div class="form-group row">
+                    <label class="col-lg-4 col-form-label">아이디(사업자등록번호) *</label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control" id="cusRnum" name="cusRnum" maxlength="10" placeholder="아이디를 입력해주세요.">
+                   		<span id="idCheckRes">아이디는 사업자 등록번호 10자리입니다.('-'는 빼고 입력해주세요.)</span>
+                    </div>
+                    <div class="col-lg-2">
+						<button type="button" id="idCheckBtn" class="btn btn-primary" style="text-align: start;">상태 조회</button>
+					</div>
+                </div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">비밀번호 *</label>
+					<div class="col-lg-5">
+						<input type="password" class="form-control" id="cusPw" name="cusPw" maxlength="16" placeholder="비밀번호를 입력해주세요.">
+						<span id="pwValiRes"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">비밀번호 확인 *</label>
+					<div class="col-lg-5">
+						<input type="password" class="form-control" id="cusPw2" name="cusPw2" maxlength="16" placeholder="비밀번호를 다시 입력해주세요.">
+						<span id="pwCheckRes"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">회사 이름 *</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusCom" name="cusCom" placeholder="회사 이름을 입력해주세요.">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">이름(대표자 이름) *</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusName" name="cusName" placeholder="이름을 입력해주세요.">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">우편번호 *</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusZip" name="cusZip" onclick="DaumPostcode()" placeholder="누르면 주소 찾기로 이동합니다.">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">회사 주소 *</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusAddr" name="cusAddr" placeholder="회사 주소를 입력해주세요.">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">상세 주소</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusAddr2" name="cusAddr2" placeholder="상세 주소를 입력해주세요.">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">회사 전화번호 *</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusTel" name="cusTel" placeholder="회사 전화번호를 입력해주세요.('-' 포함해주세요.)">
+						<span id="telValiRes"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">사원수 *</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusEmp" name="cusEmp" maxlength="5" placeholder="사원수를 입력해주세요.(숫자만 입력)" oninput="inputNum(this.cusEmp)">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">이메일 *</label>
+					<div class="col-lg-5">
+						<input type="email" class="form-control" id="cusEmail" name="cusEmail" placeholder="이메일을 입력해주세요.(비밀번호 찾기 시 사용)">
+						<span id="emailVali"></span>
+					</div>
+					<div class="col-lg-2">
+						<button type="button" id="emailCheckBtn" class="btn btn-primary" style="text-align: start;">중복 확인</button>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">창립일</label>
+					<div class="col-lg-5">
+						<input type="text" class="form-control" id="cusBirth" name="cusBirth" placeholder="회사 창립일을 입력해주세요.(예시 : 1993-10-12)" maxlength="10">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">회사 로고</label>
+					<div class="col-lg-5">
+						<input type="file" class="form-control" id="cusLogoImg" name="cusLogoImg">
+					</div>
+				</div>
+				<div class="form-group row text-center">
+					<label class="col-lg-4 col-form-label"></label>
+					<div class="col-lg-5">
+						<div id="thumbnailContainer"></div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">프로필 이미지</label>
+					<div class="col-lg-5">
+						<input type="file" class="form-control" id="cusProfileImg" name="cusProfileImg">
+					</div>
+				</div>
+				<div class="form-group row text-center">
+					<label class="col-lg-4 col-form-label"></label>
+					<div class="col-lg-5">
+						<div id="thumbnailContainer2"></div>
+<!-- 						<img id="profileImg" alt="Customer Profile Image" src="/resources/images/yangkoong.jpg" style="width: 300px;"> -->
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-lg-4 col-form-label">회사 직인</label>
+					<div class="col-lg-5">
+						<input type="file" class="form-control" id="cusSignImg" name="cusSignImg">
+					</div>
+				</div>
+				<div class="form-group row text-center">
+					<label class="col-lg-4 col-form-label"></label>
+					<div class="col-lg-5">
+						<div id="thumbnailContainer3"></div>
+<!-- 						<img id="signImg" alt="Company Signature Image" src="/resources/images/yangkoong.jpg" style="width: 300px;"> -->
+					</div>
+				</div>
+				<br><br>
+				<div class="form-group" align="center">
+					<button type="button" class="btn btn-light" id="outoInsert" style="width: 500px;">자동완성</button>
+				</div>
+				<div class="form-group" align="center">
+					<button type="button" class="btn btn-primary" id="regiBtn" style="width: 500px;">회원가입</button>
+				</div>
+		</div>
+		<sec:csrfInput/>
+	</form>
+	</div>
+</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>  
+<script type="text/javascript">
+
+$(function() {
+	var regiBtn = $("#regiBtn");
+	var regiForm = $("#regiForm");
+	var logoImg = $("#logoImg");
+	var profileImg = $("#profileImg");
+	var signImg = $("#signImg");
+	var cusImageFile = $("#cusImageFile");
+	var cusSignature = $("#cusSignature");
+	var idCheckBtn = $("#idCheckBtn");
+	var emailCheckBtn = $("#emailCheckBtn");
+// 	var imgFile= $("#imgFile");
+	var item= $("#item");
+	var cusLogoImg= $("#cusLogoImg");
+	var cusSignImg= $("#cusSignImg");
+	var cusProfileImg= $("#cusProfileImg");
+	var idCheckFlag = false;
+	var emailCheckFlag = false;
+	
+	/////////////////////자동완성/////////////////////////////
+	var outoInsert = $("#outoInsert");
+	var cusRnum = $("#cusRnum"); //사업자번호
+	var cusPw = $("#cusPw"); //비번
+	var cusPw2 = $("#cusPw2"); //비번확인
+	var cusCom = $("#cusCom"); //회사이름
+	var cusName = $("#cusName"); //대표이름
+	var cusZip = $("#cusZip"); //우편번호
+	var cusAddr = $("#cusAddr"); //주소
+	var cusAddr2 = $("#cusAddr2"); //상세주소
+	var cusTel = $("#cusTel"); //전화
+	var cusEmp = $("#cusEmp"); //사원수
+	var cusEmail = $("#cusEmail"); //이메일
+	var cusBirth = $("#cusBirth"); //창립일
+	
+	outoInsert.on("click", function(){
+		cusRnum.val("2128173385");
+		cusPw.val("aa1234**");
+		cusPw2.val("aa1234**");
+		cusCom.val("호모사피엔스");
+		cusName.val("네안데스탈");
+		cusZip.val("34908");
+		cusAddr.val("대전 중구 계룡로 846");
+		cusAddr2.val("3-4층");
+		cusTel.val("042-222-8202");
+		cusEmp.val("160");
+		cusEmail.val("p_yb24@naver.com");
+		cusBirth.val("1989-11-03");
+	});
+	/////////////////////자동완성/////////////////////////////
+	
+	
+	$("#cusRnum").keyup(function() {
+    var id = $("#cusRnum").val();
+    
+    // 아이디 길이 체크
+    if (isValidId(id)) {
+        var data = {
+            cusRnum: id
+        };
+        
+        $.ajax({
+            type: "post",
+            url: "/idCheck",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            success: function(res) {
+                console.log("아이디 중복 확인 결과 : " + res);
+                if (res == "NOTEXIST") {
+                    $("#idCheckRes").html("사용 가능한 아이디입니다! 진위 확인을 해주세요!");
+                    $("#idCheckRes").css("color", "green");
+                    $("#cusRnum").css("border", "1px solid green");
+                    idCheckFlag1 = true; // 가입하기 버튼을 클릭할 때 아이디 중복 체크를 했는지 여부
+                } else {
+                    $("#idCheckRes").html("이미 사용중인 아이디입니다!");
+                    $("#idCheckRes").css("color", "red");
+                    $("#cusRnum").css("border", "1px solid red");
+                }
+            },
+            error: function() {
+                alert("서버 요청 실패!");    
+            }
+        });
+    } else {
+        // 아이디 길이가 10자가 아닌 경우 처리
+        $("#idCheckRes").html("아이디는 숫자 10자리이어야 합니다!");
+        $("#idCheckRes").css("color", "red");
+    }
+});
+
+	
+	///////////////////
+	
+	idCheckBtn.on("click", function() {
+		
+		var id = $("#cusRnum").val();
+		
+		if(id == null || id == "") {
+			alert("아이디를 입력해주세요.");
+			return false;
+		}
+		
+        var data = {
+//            b_no: [1248100998], // 실제 존재하는 사업자 번호
+           b_no: [id],
+        	};
+
+        let serviceKey ="uJswIc4BpkgJM133aej4HAQn%2FTwRTFGhwHPw4SEV%2BHXRQzQ1nTXS5p%2F5Ec54CalGU7tejWp%2Fo%2BVnE0pvmDwdjQ%3D%3D";
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
         $.ajax({
           url:
             "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=" +

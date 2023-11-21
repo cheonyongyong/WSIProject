@@ -9,6 +9,7 @@ import lombok.Data;
 
 @Data
 public class EmpVO {
+<<<<<<< HEAD
 	private String empNo;			// 사원번호
 	private String empPw;			// 사원 패스워드
 	private String empName;			// 사원 이름
@@ -56,6 +57,49 @@ public class EmpVO {
 
 	private String hrHistoryNm; // hrHistory 이름
 	
+=======
+	private String empNo;
+	private String empPw;
+	private String empName;
+	private String empEname;
+	private String empGen;
+	private String empReg1;
+	private String empReg2;
+	private String empTel;
+	private String empAddr1;
+	private String empAddr2;
+	private String empEmail;
+	private Date empDate;
+	private String empStat;
+	private String empWork;
+	private String empAcct;
+	private String empBank;
+	private String empProfile;
+	private MultipartFile imgFile;
+	private String empSignature;
+	private String empDept;
+	private String empPos;
+	private String empRank;
+	private String empJob;
+	private String empFfile;
+	List<EmpAuth> authList;
+	private String recCode;
+	private String empKdate;
+	private String empStatCount1;
+	private String empStatCount2;
+	private String empStatCount3;
+	private String empStatCount4;
+	private String empCount;
+	private String deptName;
+	private String posName;
+	private String savePath;
+	private String fileNo;
+	
+	private String searchType;
+	private String searchWord;
+	private String hrMemo;
+	private Date emptEndDate;
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 	
 }

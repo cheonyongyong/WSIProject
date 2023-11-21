@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<<<<<<< HEAD
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 <div class="row">
@@ -17,6 +18,27 @@
 								<button style="margin-bottom: 4px;" type="button" class="btn btn-primary" id="dateBtn">검색</button>
 							</div>
 	                	</div>
+=======
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+               
+                <div class="table-responsive">
+<!--                 	<h2>근무 관리</h2> -->
+                	<div class="d-flex">
+	                	<div class="p-2 flex-fill">
+							<div class="gridjs-search">
+								<input type="date" id="datePick" placeholder="날짜 선택" aria-label="Type a keyword..." class="gridjs-input gridjs-search-input">
+								<button style="margin-bottom: 4px;" type="button" class="btn btn-primary" id="dateBtn">검색</button>
+							</div>
+						</div>
+	                	<div class="p-2"></div>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 				    </div>
                     <table id="myTable" class="table table-bordered align-middle table-nowrap table-check display">
                         <thead class="table-light">

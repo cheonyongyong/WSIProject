@@ -180,6 +180,7 @@ public class MainAdminServiceImpl implements IMainAdminService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<CustomerVO> selectCusEmp() {
 		return mainAdminMapper.selectCusEmp();
 	}
@@ -194,5 +195,15 @@ public class MainAdminServiceImpl implements IMainAdminService {
 		return mainAdminMapper.selectBoardList(pagingVO);
 	}
 
+=======
+	public int selectBoardCount(PaginationInfoVO<InqBoardVO> pagingVO) {
+		return mainAdminMapper.selectBoardCount(pagingVO);
+	}
+
+	@Override
+	public List<InqBoardVO> selectBoardList(PaginationInfoVO<InqBoardVO> pagingVO) {
+		return mainAdminMapper.selectBoardList(pagingVO);
+	}
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 }

@@ -135,6 +135,12 @@ public class ExcelRead {
         // Map을 리스트로 만들기
         List<Map<String, String>> result = ExcelRead.read(ro);
         
+<<<<<<< HEAD
+=======
+        for(Map<String, String> map : result) {
+            System.out.println(map.get("A"));
+        }
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
     }
     
 }

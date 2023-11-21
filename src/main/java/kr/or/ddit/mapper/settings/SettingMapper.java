@@ -45,6 +45,7 @@ public interface SettingMapper {
 	
 	int insertEmp(EmpVO vo);
 
+<<<<<<< HEAD
 	List<SettingsVO> empMemList();
 
 	List<SettingsVO> empManList();
@@ -65,4 +66,6 @@ public interface SettingMapper {
 
 	void rollbackTree();
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

@@ -31,6 +31,9 @@ public interface IDocService {
 	public ServiceResult deleteDoc(String docNo);
 	public ServiceResult docSave(DocVO docVO);
 	public ServiceResult docVacRegister(DocVO docVO);
+<<<<<<< HEAD
 	public ServiceResult docAbRegister(DocVO docVO);
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 
 }

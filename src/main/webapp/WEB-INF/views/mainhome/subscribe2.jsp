@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -97,6 +98,60 @@
 	       			<fmt:formatNumber value="${total + levelPrice }" pattern="#,###" />원</b></p>
 	       		<br>
         	</div>
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>결제하기</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-lg-12 p-5" align="center">
+        	<input type="hidden" id="cusRnum" name="cusRnum" value="${SessionInfo.cusRnum }">
+        	<input type="hidden" id="payCode" name="payCode" value="${paymentVO.payCode }">
+        	<input type="hidden" id="cusEmail" name="cusEmail" value="${SessionInfo.cusEmail }">
+        	<input type="hidden" id="cusTel" name="cusTel" value="${SessionInfo.cusTel }">
+        	<input type="hidden" id="cusCom" name="cusCom" value="${SessionInfo.cusCom }">
+        	<input type="hidden" id="cusName" name="cusName" value="${SessionInfo.cusName }">
+        	<input type="hidden" id="payAmt" name="payAmt" value="${paymentVO.payAmt }">
+        	
+        	<h2>원시인</h2>
+        	<hr>
+        	<h6>결제하기</h6>
+        	<br>
+        	<p>인사시스템의 관리자 계정을 최초 생성하기 위해 구매자의 사번이 필요합니다.<br>입력하신 사번으로 아이디를 생성하여 계정 정보를 등록된 이메일로 보내드립니다.</p>
+        	<br>
+        	사번 : <input type="text" id="empNo" name="empNo" maxlength="10"><br>
+  			회사 이름 : ${SessionInfo.cusCom }<br>
+  			대표자 이름 : ${SessionInfo.cusName }<br>
+  			이메일 : ${SessionInfo.cusEmail }<br>
+  			<br>
+        	<p>선택하신 레벨과 기능을 확인해주세요!<br></p>
+        	
+        	선택한 레벨<br> 
+        	${paymentVO.levelName }(${paymentVO.levelMemo }) - <fmt:formatNumber value="${paymentVO.levelFee }" pattern="#,###" />원<br>
+        	<br>
+        	선택한 기능<br>
+        	<c:forEach items="${paymentVO.funcLevelList }" var="funcLevelList" >
+        		${funcLevelList.funcName }(${funcLevelList.funcMemo }) - <fmt:formatNumber value="${funcLevelList.funcFee }" pattern="#,###" />원<br>
+       		</c:forEach>
+       		<br>
+       		총 결제 금액 : 
+       		<c:set var="total" value="0"/>
+       		<c:set var="levelPrice" value="${paymentVO.levelFee }"/>
+       			<c:forEach items="${paymentVO.funcLevelList }" var="result" varStatus="status">
+       				<c:set var="total" value="${total + (result.funcFee) }"/>
+       			</c:forEach>
+       			<fmt:formatNumber value="${total + levelPrice }" pattern="#,###" />원
+       		<br><br>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
         	<div align="center" style="margin-bottom: 50px;">
 			    <button onclick="requestPay()" type="button" id="purchaseBtn" class="btn btn-primary" style="width: 500px;">결제하기</button>
 		    </div>

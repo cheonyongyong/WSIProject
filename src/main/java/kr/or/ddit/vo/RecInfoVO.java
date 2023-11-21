@@ -5,7 +5,11 @@ import lombok.Data;
 @Data
 public class RecInfoVO {
 	
+<<<<<<< HEAD
 	private int recCode; //지원번호
+=======
+	private String recCode; //지원번호
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	private String recType; //지원종류
 	private String recFile; //첨부자료
 	private String recStat; //처리상태

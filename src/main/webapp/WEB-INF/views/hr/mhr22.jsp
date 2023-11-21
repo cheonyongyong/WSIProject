@@ -24,6 +24,7 @@
 					<div class="d-flex justify-content-end">
 						<button type="button" id="imp" class="btn btn-primary">채용처리</button>		
 					</div>
+<<<<<<< HEAD
 					<a>※처리상태가 <b style="color: black;">합격</b>인 해당 사람의 부서, 직위, 근로유형을 더블클릭하여 선택하고 처리버튼을 누르십시오. </a>
 					<div id="grid"></div>
 				</div>	
@@ -96,6 +97,82 @@ $(function() {
 				}else{
 					alertify.error("합격자만 채용처리 할 수 있습니다!");
 	                setTimeout(() => location.reload(), 1000);
+=======
+				</div>
+				<div class="card-body">	
+					<a>※처리상태가 <b style="color: black;">합격</b>인 해당 사람의 부서, 직위, 근로유형을 더블클릭을 하여 선택하고 처리버튼을 누르십시오. </a>
+					<div id="grid"></div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${pageContext.request.contextPath }/resources/tui-date-picker/dist/tui-date-picker.js"></script>
+<script src="${pageContext.request.contextPath }/resources/tui-time-picker/dist/tui-time-picker.js"></script>
+<script src="${pageContext.request.contextPath }/resources/tui-pagination/dist/tui-pagination.js"></script>
+<script src="${pageContext.request.contextPath }/resources/tui-grid/dist/tui-grid.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	$.ajax({
+		url : "/hr/mhr22GridList",
+		method : "get",
+		beforeSend: function(xhr){
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		},
+		contentType : "application/json; charset=utf-8",
+		success : function(result) {
+			
+			console.log('result =>',result);
+			grid.resetData(result);
+		}
+	});
+	
+	//채용처리 버튼 클릭
+	$("#imp").on("click",function(){
+		console.log("here is imp");
+		
+		//let trArr = $("#grid").children("div").children("div:eq(0)").children("div:eq(1)").children("div:eq(1)").children("div").children("div").children("table").children("tbody").children("tr"); //.html();
+		
+		var elem = $("#grid").find(".tui-grid-rside-area").find(".tui-grid-body-area").find("tr");
+		var data = [];
+		elem.map(function(i,e){
+			var recno = $(e).find(".tui-grid-cell")[0];
+			var ele = $(e).find(".tui-grid-cell")[4];
+			var dept = $(e).find(".tui-grid-cell")[5];
+			var job = $(e).find(".tui-grid-cell")[6];
+			var work = $(e).find(".tui-grid-cell")[7];
+			if(ele.children[0].innerText == "합격" && dept.children[0].innerText != ""){
+				data.push({
+					recCode : recno.children[0].innerText,
+					empDept : dept.children[0].innerText,
+					empJob : job.children[0].innerText,
+					empWork : work.children[0].innerText
+				});
+			}
+		});
+		
+		console.log(data);
+		$.ajax({
+			method : "post",
+			url : "/hr/register",
+			beforeSend: function(xhr){
+				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			},
+			data : JSON.stringify(data),
+			dataType : "text",
+			contentType : "application/json; charset=utf-8",
+			success : function(result){
+				console.log("result : " + result);
+				if(result > 0){
+					alert("채용등록  완료되었습니다.");
+	               	location.reload();
+				}else{
+					alert("합격자만 채용처리 할 수 있습니다!");
+					location.reload();
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 				}
 			}
 		});

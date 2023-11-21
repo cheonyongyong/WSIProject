@@ -59,11 +59,19 @@
 						<c:choose>
 							<c:when test="${SessionInfo.cusRnum eq 'admin' }">
 								<li><a href="/mainlogout" class="nav-link btn btn-primary btn-sm mr-2 mb-2">로그아웃</a></li>
+<<<<<<< HEAD
 								<li><a href="/mypageadmin/adminboard" class="nav-link btn btn-secondary btn-sm mr-2 mb-2">관리자 페이지</a></li>
 							</c:when>
 							<c:when test="${SessionInfo != null }">
 								<li><a href="/mainlogout" class="nav-link btn btn-primary btn-sm mr-2 mb-2">로그아웃</a></li>
 								<li><a href="/mypageuser/userpwcheck" class="nav-link btn btn-secondary btn-sm mr-2 mb-2">${SessionInfo.cusName }님의 마이페이지</a></li>
+=======
+								<li><a href="/mypageadmin" class="nav-link btn btn-secondary btn-sm mr-2 mb-2">관리자 페이지</a></li>
+							</c:when>
+							<c:when test="${SessionInfo != null }">
+								<li><a href="/mainlogout" class="nav-link btn btn-primary btn-sm mr-2 mb-2">로그아웃</a></li>
+								<li><a href="/mypageuser" class="nav-link btn btn-secondary btn-sm mr-2 mb-2">${SessionInfo.cusName }님의 마이페이지</a></li>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 							</c:when>
 						</c:choose>
 					</ul>

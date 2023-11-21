@@ -48,8 +48,11 @@
 		<typeAlias type="kr.or.ddit.vo.SocketVO" alias="socketVO"/>
 		<typeAlias type="kr.or.ddit.vo.VacationAplyVO" alias="vacAplyVO"/>
 		<typeAlias type="kr.or.ddit.vo.StatsVO" alias="statsVO"/>
+<<<<<<< HEAD
 		<typeAlias type="kr.or.ddit.vo.GridVO" alias="gridVO"/>
 		<typeAlias type="kr.or.ddit.vo.TodoVO" alias="todoVO"/>
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	</typeAliases>
 
 </configuration>

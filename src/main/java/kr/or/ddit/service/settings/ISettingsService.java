@@ -41,6 +41,7 @@ public interface ISettingsService {
 
 	int insertEmpExcel(SettingsVO settingsVO,HttpServletRequest req);
 
+<<<<<<< HEAD
 	List<SettingsVO> empMemList();
 
 	List<SettingsVO> empManList();
@@ -55,4 +56,6 @@ public interface ISettingsService {
 
 	ServiceResult treeUpdate(List<TreeVO> treeVO);
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

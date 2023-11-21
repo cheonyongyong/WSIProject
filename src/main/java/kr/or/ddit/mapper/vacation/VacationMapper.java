@@ -36,6 +36,9 @@ public interface VacationMapper {
 
 	public List<VacationAplyVO> selectAllvacEmp();
 
+<<<<<<< HEAD
 	public void allVacationChange();
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

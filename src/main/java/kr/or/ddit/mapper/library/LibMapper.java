@@ -36,6 +36,9 @@ public interface LibMapper {
 
 	public int libSize();
 
+<<<<<<< HEAD
 	public int libListCnt(PaginationInfoVO<LibraryVO> pagingVO);
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

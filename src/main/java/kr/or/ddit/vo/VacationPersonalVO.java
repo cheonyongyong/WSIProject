@@ -12,7 +12,10 @@ public class VacationPersonalVO {
 	private String empNo;
 	private String empName;
 	private String empDept;
+<<<<<<< HEAD
 	private String empProfile;
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	private String comName;
 	private String vacCode;
 	private String vpChgCase;

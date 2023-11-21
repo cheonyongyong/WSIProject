@@ -572,6 +572,7 @@ $(function() {
 						url : "/settings/registerVac?${_csrf.parameterName}=${_csrf.token}",
 						data :  data,
 						success : function(res) {
+<<<<<<< HEAD
 						    alert("휴가가 등록되었습니다.");
 						    setTimeout(() => location.href="/settings/middlelist", 1000);
 						}
@@ -579,6 +580,21 @@ $(function() {
 					vacCheckFlag = true;
 				} else {
 					alert("중복된 휴가명입니다.");
+=======
+						    Swal.fire({
+						        title: "휴가가 등록되었습니다.",
+						        confirmButtonColor: "#038edc"
+						    });
+						    setTimeout(() => location.href="/settings/middlelist", 1000);
+						}
+					});
+					vacCheckFlag = true;
+				} else {
+				    Swal.fire({
+				        title: "중복된 휴가명입니다.",
+				        confirmButtonColor: "#038edc"
+				    });
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 				}
 			}
 		});

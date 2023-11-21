@@ -38,6 +38,11 @@
 	<ul id="sidemenu" class="list-unstyled">
 	    <li><b><a href="/mypageuser/userpwcheck"><i class="fi fi-rs-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;회원 정보 수정</a></b></li>
 	    <li><b><a href="/mypageuser/purchasehistory?cusRnum=${SessionInfo.cusRnum }"><i class="fi fi-rr-shopping-cart"></i>&nbsp;&nbsp;&nbsp;&nbsp;구매 내역</a></b></li>
+<<<<<<< HEAD
 	    <li><b><a href="/mypageuser/userboard"><i class="fi fi-rs-interrogation"></i>&nbsp;&nbsp;&nbsp;&nbsp;1:1 문의</a></b></li>
 <!-- 	    <li><b><a href="/mypageuser/statsuser"><i class="fi fi-sr-chart-line-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;애널리틱스</a></b></li> -->
+=======
+	    <li><b><a href="/mypageuser/userboard"><i class="fi fi-rs-interrogation"></i>&nbsp;&nbsp;&nbsp;&nbsp;내가 쓴 문의글</a></b></li>
+	    <li><b><a href="/mypageuser/statsuser"><i class="fi fi-sr-chart-line-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;애널리틱스</a></b></li>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	</ul>

@@ -18,6 +18,7 @@
 		SELECT
 		sch_no, sch_title, sch_content, sch_sdate, sch_edate, sch_color, sch_dept, emp_no
 		FROM SCHEDULE
+<<<<<<< HEAD
 		WHERE emp_no = #{empNo}
 	</select>
 	
@@ -63,4 +64,18 @@
 		WHERE emp_no = #{empNo}
 		AND todo_content = #{todoContent}
 	</delete>
+=======
+	</select>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM SCHEDULE WHERE sch_sdate = #{date}
+	</delete>
+
+	<update id="update" parameterType="scheduleVO">
+		UPDATE SCHEDULE
+		SET sch_sdate = #{schSdate},
+		sch_edate = #{schEdate}
+		WHERE sch_sdate = #{scholdSdate}
+	</update>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 </mapper>

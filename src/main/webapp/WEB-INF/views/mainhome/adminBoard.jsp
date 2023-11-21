@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
+<<<<<<< HEAD
 <div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/hero_2.jpg); height: 30px;" data-aos="fade" id="home-section">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
@@ -42,6 +43,47 @@
 <%--         	<c:if test="${SessionInfo != null }"> --%>
 <!-- 		        <button type="button" id="writeBtn" class="btn btn-outline-light" style="background-color: #D0DDF3; color: black;">공지사항 등록하기</button> -->
 <%--         	</c:if> --%>
+=======
+<div class="site-blocks-cover overlay" style="background-image: url(${pageContext.request.contextPath }/resources/images/cloud.jpg); height: 30px;" data-aos="fade" id="home-section">
+	<div class="container">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-md-6 mt-lg-5 text-center">
+				<h1>답변할 문의글</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="max-width: 80%;">
+    <div class="row" style="margin: 0; padding: 0;">
+        <div class="col-lg-2 pt-5 pb-5" style="padding-left: 20px; padding-right: 20px;">
+            <!-- 사이드 메뉴 -->
+            <%@ include file="sidemenuAdmin.jsp" %>
+        </div>
+		
+        <div class="col-lg-10 pt-5" style="padding-left: 20px; padding-right: 20px;">
+		<div class="col-lg-12" align="right">
+			<div>
+			<form id="searchForm" class="input-group input-group-sm" style="width: 440px;">
+				<input type="hidden" name="page" id="page"/>
+				<select class="form-control" id="searchType" name="searchType">
+					<option value="inqTitle" <c:if test="${searchType eq 'inqTitle' }">selected</c:if>>제목</option>
+					<option value="cusCom" <c:if test="${searchType eq 'cusCom' }">selected</c:if>>회사 이름</option>
+					<option value="cusName" <c:if test="${searchType eq 'cusName' }">selected</c:if>>작성자</option>
+					<option value="cusRnum" <c:if test="${searchType eq 'cusRnum' }">selected</c:if>>사업자등록번호</option>
+				</select>
+				<input type="text" class="form-control" name="searchWord" value="${searchWord }" placeholder="검색어를 입력해주세요.">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-default" style="background-color: #D0DDF3; color: black;">검색</button>
+				</div>
+				<sec:csrfInput/>
+			</form>
+			</div>
+			<br>
+        	<c:if test="${SessionInfo != null }">
+		        <button type="button" id="writeBtn" class="btn btn-outline-light" style="background-color: #D0DDF3;">문의하기</button>
+        	</c:if>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		</div>
 		
         <br>

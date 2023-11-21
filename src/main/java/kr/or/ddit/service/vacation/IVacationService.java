@@ -36,6 +36,9 @@ public interface IVacationService {
 
 	public List<VacationAplyVO> selectAllvacEmp();
 
+<<<<<<< HEAD
 	public ServiceResult allVacationChange();
 
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

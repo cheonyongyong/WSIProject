@@ -76,6 +76,7 @@ public class SettingsServiceImpl implements ISettingsService {
 		if(status > 0) {
 			List<AttachVO> cusFileList = settingsVO.getCusFileList();
 			try {
+<<<<<<< HEAD
 				FileuploadUtils.cusFileUpload(cusFileList, settingsVO.getCusLogo(), settingsVO.getCusImage(), settingsVO.getCusSignature(),settingsVO.getCusRnum(), req, mapper);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -282,6 +283,143 @@ public class SettingsServiceImpl implements ISettingsService {
 		}
 		
 		return result;
+=======
+//				FileuploadUtils.cusFileUpload(cusFileList, settingsVO.getCusLogo(), settingsVO.getCusImage(), settingsVO.getCusSignature(),settingsVO.getCusRnum(), req, mapper);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			result = ServiceResult.OK;
+		}else {
+			result  = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
+	private SettingsVO uploadFileImage(String type, SettingsVO settingsVO, MultipartFile file, HttpServletRequest req) {
+		String uploadPath = "/resources/settings/";
+		String savePath = req.getServletContext().getRealPath(uploadPath);
+		File sfile = new File(savePath);
+		
+		if(!sfile.exists()) {
+			sfile.mkdirs();
+		}
+		
+		AttachVO attach = null;
+		String uuidFileName = UUID.randomUUID().toString();
+		String fileName = uuidFileName + "_" + file.getOriginalFilename();
+		String saveLocate = savePath + fileName;
+		attach = new AttachVO();
+		attach.setFileSavepath(saveLocate);
+		attach.setFileName(fileName);
+		attach.setFileOrgname(file.getOriginalFilename());
+		attach.setFileSize(file.getSize());
+		attach.setFileMime(file.getContentType());
+		
+		CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // 시큐리티에 담긴 로그인된 유저 정보
+		attach.setFileUploader(user.getEmp().getEmpNo());
+		attach.setFileCode("cus");
+		
+		File newFile = new File(saveLocate);
+		try {
+			file.transferTo(newFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mapper.insertCompFile(attach);
+//		int stat = mapper.delCusFile(attach);
+
+		if(type.equals("logo")) {
+			settingsVO.setCusLogo(attach.getFileNo());
+		}else if(type.equals("image")) {
+			settingsVO.setCusImage(attach.getFileNo());
+		}else {
+			settingsVO.setCusSignature(attach.getFileNo());
+		}
+		return settingsVO;
+	}
+
+	@Override
+	public ServiceResult registerVac(HttpServletRequest req, SettingsVO settingsVO) {
+		ServiceResult result = null;
+		int status = mapper.registerVac(settingsVO);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		}else {
+			result  = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult deleteVac(String vacCode) {
+		ServiceResult result = null;
+		int status = mapper.deleteVac(vacCode);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		}else {
+			result  = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
+	@Override
+	public List<SettingsVO> empList() {
+		return mapper.empList();
+	}
+
+	@Override
+	public int empModifyAuth(SettingsVO settingsVO) {
+		return mapper.empModifyAuth(settingsVO);
+	}
+
+	@Override
+	public List<TreeVO> deptList() {
+		return mapper.deptList();
+	}
+
+	@Override
+	public List<TreeVO> searchList(TreeVO tree) {
+		return mapper.searchList(tree);
+	}
+
+	@Override
+	public List<TreeVO> posList() {
+		return mapper.posList();
+	}
+
+
+	@Override
+	public List<TreeVO> rankList() {
+		return mapper.rankList();
+	}
+
+
+	@Override
+	public List<TreeVO> jobList() {
+		return mapper.jobList();
+	}
+
+	@Override
+	public int insertEmpExcel(SettingsVO settingsVO, HttpServletRequest req) {
+//		MultipartFile empExcel = settingsVO.getEmpListFile();
+		ExcelParser parser = new ExcelParser();
+		int iinsertCnt = 0;
+		try {
+
+			AttachVO aVO = new AttachVO(settingsVO.getEmpListFile());
+			
+			List<EmpVO> empList= parser.getExcelData(aVO,req);
+			for(EmpVO vo : empList) {
+				mapper.insertEmp(vo);
+				iinsertCnt++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return iinsertCnt;
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	}
 	
 }

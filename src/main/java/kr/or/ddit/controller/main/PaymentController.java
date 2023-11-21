@@ -104,7 +104,11 @@ public class PaymentController {
 		if(customer != null) {
 			model.addAttribute("SessionInfo", customer);
 			
+<<<<<<< HEAD
 			mainService.sendMail(req, customer);
+=======
+			mainService.sendMail(customer);
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 			
 //			MailHandler sendMail = new MailHandler(mailSender);
 //			sendMail.setSubject("WSI 시스템 구매 메일입니다!");

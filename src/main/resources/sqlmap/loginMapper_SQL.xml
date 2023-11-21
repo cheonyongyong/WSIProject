@@ -31,6 +31,7 @@
 		<result property="empFfile" column="EMP_FFILE"/>
 		<result property="deptName" column="DEPT_NAME"/>
 		<result property="posName" column="POS_NAME"/>
+<<<<<<< HEAD
 		<result property="rankName" column="RANK_NAME"/>
 		<result property="jobName" column="JOB_NAME"/>
 		<result property="savePath" column="SAVE_PATH"/>
@@ -69,6 +70,41 @@
 			EMP_NO, EMP_PW, EMP_NAME, EMP_ENAME, EMP_GEN, EMP_REG1, EMP_REG2, EMP_TEL, EMP_ADDR1, EMP_ADDR2, EMP_EMAIL, EMP_DATE, 
 			EMP_STAT, EMP_WORK, EMP_ACCT, EMP_BANK, EMP_PROFILE, EMP_SIGNATURE, EMP_DEPT, EMP_POS, EMP_RANK, EMP_JOB, EMP_FFILE,
 			(SELECT ATTACH.FILE_SAVEPATH FROM ATTACH WHERE EMP.EMP_PROFILE = ATTACH.FILE_NO ) SAVE_PATH
+=======
+		<result property="savePath" column="SAVE_PATH"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="empAuth" id="authMap">
+		<result property="empNo" column="EMP_NO"/>
+		<result property="auth" column="EMP_ROLE"/>
+	</resultMap>
+	
+	<select id="loginCheck" parameterType="empVO" resultType="empVO">
+		select
+			EMP_NO, EMP_PW, EMP_NAME, EMP_ENAME, EMP_GEN, EMP_REG1, EMP_REG2, EMP_TEL, EMP_ADDR1, EMP_ADDR2, EMP_EMAIL, EMP_DATE, 
+			EMP_STAT, EMP_WORK, EMP_ACCT, EMP_BANK, EMP_PROFILE, EMP_SIGNATURE, EMP_DEPT, EMP_POS, EMP_RANK, EMP_JOB, EMP_FFILE
+		from emp
+		where EMP_NO = #{empNo}
+		and EMP_PW = #{empPw}
+	</select>
+	
+	<select id="readByUserId" parameterType="string" resultMap="empMap"> 
+		select
+			e.EMP_NO, EMP_PW, EMP_NAME, EMP_ENAME, EMP_GEN, EMP_REG1, EMP_REG2, EMP_TEL, EMP_ADDR1, EMP_ADDR2, EMP_EMAIL, EMP_DATE, 
+			EMP_STAT, EMP_WORK, EMP_ACCT, EMP_BANK, EMP_PROFILE, EMP_SIGNATURE, EMP_DEPT, EMP_POS, EMP_RANK, EMP_JOB, EMP_FFILE, EMP_ROLE,
+			(SELECT COMMON.COM_NAME FROM COMMON WHERE COM_CODE = E.EMP_DEPT) DEPT_NAME,
+			(SELECT COMMON.COM_NAME FROM COMMON WHERE COM_CODE = E.EMP_POS) POS_NAME,
+			(SELECT ATTACH.FILE_SAVEPATH FROM ATTACH WHERE E.EMP_PROFILE = ATTACH.FILE_NO ) SAVE_PATH
+		from emp e left outer join emp_auth a on(e.EMP_NO = a.EMP_NO)
+		where e.EMP_NO = #{username}
+	</select>
+	
+	<select id="empSearch" parameterType="string" resultType="empVO">
+		select 
+			EMP_NO, EMP_PW, EMP_NAME, EMP_ENAME, EMP_GEN, EMP_REG1, EMP_REG2, EMP_TEL, EMP_ADDR1, EMP_ADDR2, EMP_EMAIL, EMP_DATE, 
+			EMP_STAT, EMP_WORK, EMP_ACCT, EMP_BANK, EMP_PROFILE, EMP_SIGNATURE, EMP_DEPT, EMP_POS, EMP_RANK, EMP_JOB, EMP_FFILE
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		from emp
 		where EMP_NAME like '%' || #{empName} || '%'
 	</select>

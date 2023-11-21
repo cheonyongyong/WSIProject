@@ -17,7 +17,10 @@ public class HrHxVO {
 	private String hrName; //사원명
 	private String hrDept; //부서
 	private String hrPos; //직책
+<<<<<<< HEAD
 	private String hrStat; //직책
 	private String hrHistory; //전 부서, 전 직책
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 }

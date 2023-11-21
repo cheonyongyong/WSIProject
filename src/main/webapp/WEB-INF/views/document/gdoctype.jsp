@@ -26,6 +26,7 @@
 													class="form-control float-right" placeholder="문서종류를 입력하세요"></li>
 												<li class="nav-item">
 													<div class="input-group-append">
+<<<<<<< HEAD
 														<button type="submit" class="btn btn-primary">검색</button>
 													</div>
 												</li>
@@ -91,6 +92,104 @@ $(function() {
 		searchForm.find("#page").val(pageNo);
 		searchForm.submit();
 	});
+=======
+														<button type="submit" class="btn btn-primary">
+															<i class="fas fa-search"></i>검색
+														</button>
+													</div>
+												</li>
+												<sec:csrfInput />
+											</ul>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="gridjs-wrapper" style="height: auto;">
+								<table role="grid" class="gridjs-table text-center"
+									style="height: auto;">
+									<thead class="gridjs-thead">
+										<tr class="gridjs-tr">
+											<th data-column-id="name" class="gridjs-th"
+												style="min-width: 83px; width: 174px;">
+												<div class="gridjs-th-content">문서종류</div>
+											</th>
+											<th data-column-id="email" class="gridjs-th"
+												style="min-width: 181px; width: 380px;">
+												<div class="gridjs-th-content"></div>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="gridjs-tbody">
+										<c:set value="${docTypeList.dataList }" var="docTypeList" />
+										<c:forEach items="${docTypeList }" var="doc">
+											<tr class="gridjs-tr">
+												<td data-column-id="name" class="gridjs-td">${doc.docClfName }</td>
+												<td data-column-id="email" class="gridjs-td">
+													<div class="d-flex justify-content-center">
+														<a href="/document/documentwrite?docClfCode=${doc.docClfCode }">
+														<button type="button" class="btn btn-info">작성</button></a>
+													</div>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row g-0 text-center text-sm-start">
+					<div class="col-sm">
+						<nav aria-label="Page navigation example" id="pagingArea">
+							${pagingVO.pagingHTML }</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	var searchForm = $("#searchForm");
+	var pagingArea = $("#pagingArea");
+
+	pagingArea.on("click", "a", function(event) {
+		event.preventDefault();
+		var pageNo = $(this).data("page");
+		searchForm.find("#page").val(pageNo);
+		searchForm.submit();
+	});
+
+// 	var searchBtn = $("#searchBtn");
+
+	// 		searchBtn.on("click", function() {
+	// 			var searchWord = $("#searchWord").val();
+	// 			var searchType = $("#searchType").val();
+
+	// 			var data = {
+	// 				searchType : searchType,
+	// 				searchWord : searchWord
+	// 			};
+
+	// 			$.ajax({
+	// 				url : "/library/mlibrary?searchWord="+searchWord+"&searchType="+searchType+"?${_csrf.parameterName}=${_csrf.token}",
+	// 				method : "get",
+	// 				data : JSON.stringify(data),
+	// 				dataType : "json",
+	// 				contentType : "application/json; charset=utf-8",
+	// 				success : function(result) {
+
+	// 					$("#count").text(result[0].count);
+	// 				},
+	// 				error : function(result) {
+
+	// 					console.log("실패");
+	// 					console.log(result);
+	// 				}
+	// 			});
+	// 		});
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 });
 </script>
 

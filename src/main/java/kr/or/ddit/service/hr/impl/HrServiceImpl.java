@@ -237,6 +237,7 @@ public class HrServiceImpl implements IHrService {
 				AttachVO attachVO = hrMapper.selectAttach(customerVO);
 				
 				FileuploadUtils.customerBasicFileUpload(attachVO, empVO.getEmpNo(), req, hrMapper, uploadPath);
+<<<<<<< HEAD
 //				String fileNo = hrMapper.selectFileNo();
 //				empVO.setEmpProfile(fileNo);
 //				hrMapper.empProfileUpdate(empVO);
@@ -362,6 +363,133 @@ public class HrServiceImpl implements IHrService {
 	@Override
 	public List<EmpVO> gridStatList(EmpVO empVO) {
 		return hrMapper.gridStatList(empVO);
+=======
+				String fileNo = hrMapper.selectFileNo();
+				empVO.setEmpProfile(fileNo);
+				hrMapper.empProfileUpdate(empVO);
+				EmpVO emp = hrMapper.selectOne(empVO);
+				EmpAuth empAuth = new EmpAuth();
+				empAuth.setEmpNo(empVO.getEmpNo());
+				if (emp.getEmpDept().equals("a011") || emp.getEmpDept().equals("a012")) {
+		            empAuth.setAuth("ROLE_MANAGER");
+		        } else {
+		            empAuth.setAuth("ROLE_MEMBER");
+		        }
+				
+				hrMapper.createAuth(empAuth);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<EmpVO> countEmp() {
+		return hrMapper.countEmp();
+	}
+
+	/**
+	 * 관리자 이상 - 부서 이동, 부서 변경
+	 */
+	@Override
+	public int modifyEmpDept(List<EmpVO> empList, String hrMemo) {
+	    int result = 0;
+	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        UserDetails userDetails = (UserDetails)principal; 
+        String empNo = userDetails.getUsername();
+
+		HrHxVO hrHxVO = new HrHxVO();
+        hrHxVO.setEmpNo(empNo);
+        hrHxVO.setHrResp(empNo);
+        hrHxVO.setHrMemo(hrMemo);
+		hrMapper.createHrHxDept(hrHxVO);
+		String hrCode = hrMapper.selectHrCode();
+		
+	    for (EmpVO empVO : empList) {
+	        if (empVO != null && !empVO.getEmpDept().equals("")) {
+	        	log.info("modifyEmpDept() 실행...!");
+	            result += hrMapper.modifyEmpDept(empVO);
+	            
+	            String empName = empVO.getEmpName();
+	            String empPos = empVO.getEmpPos();
+	            
+	            HrDetailVO hrDetailVO = new HrDetailVO();
+	            hrDetailVO.setEmpNo(empVO.getEmpNo());
+	            hrDetailVO.setHrName(empName);
+	            hrDetailVO.setHrDept(empVO.getEmpDept());
+	            hrDetailVO.setHrPos(empPos);
+	            hrDetailVO.setHrCode(hrCode);
+	            
+	            hrMapper.createHrHxDetail(hrDetailVO);
+	        }
+	    }
+	    return result;
+	}
+
+	/**
+	 * 관리자 이상 - 승진, 직책 변경 
+	 */
+	@Override
+	public int modifyEmpPos(List<EmpVO> empList, String hrMemo) {
+		int result = 0;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        UserDetails userDetails = (UserDetails)principal; 
+        String empNo = userDetails.getUsername();
+        
+        HrHxVO hrHxVO = new HrHxVO();
+        hrHxVO.setEmpNo(empNo);
+        hrHxVO.setHrResp(empNo);
+        hrHxVO.setHrMemo(hrMemo);
+        hrMapper.createHrHxPos(hrHxVO);
+        String hrCode = hrMapper.selectHrCode();
+        
+		for(EmpVO empVO : empList) {
+			if(empVO != null && !empVO.getEmpPos().equals("")) {
+				result += hrMapper.modifyEmpPos(empVO);
+				
+				String empName = empVO.getEmpName();
+				String empDept = empVO.getEmpDept();
+	            
+	            HrDetailVO hrDetailVO = new HrDetailVO();
+	            hrDetailVO.setEmpNo(empVO.getEmpNo());
+	            hrDetailVO.setHrName(empName);
+	            hrDetailVO.setHrDept(empDept);
+	            hrDetailVO.setHrPos(empVO.getEmpPos());
+	            hrDetailVO.setHrCode(hrCode);
+	            
+	            hrMapper.createHrHxDetail(hrDetailVO);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public int selectMhr3DeptCount(PaginationInfoVO<HrHxVO> pagingVO) {
+		return hrMapper.selectMhr3DeptCount(pagingVO);
+	}
+
+	/**
+	 * 관리자 이상 - 인사 발령 내역에서 발령분류를 선택 후 모달로 상세보기
+	 */
+	@Override
+	public List<HrDetailVO> selectMhr3DeptList(PaginationInfoVO<HrDetailVO> pagingVO) {
+		return hrMapper.selectMhr3DeptList(pagingVO);
+	}
+
+	/**
+	 * 메모 수정 모달
+	 */
+	@Override
+	public int modifyMemo(HrHxVO hrHxVO) {
+		return hrMapper.modifyMemo(hrHxVO);
+	}
+
+	/**
+	 * 클릭 재직중 카드 
+	 */
+	@Override
+	public List<EmpVO> gridStatList() {
+		return hrMapper.gridStatList();
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	}
 
 	/**

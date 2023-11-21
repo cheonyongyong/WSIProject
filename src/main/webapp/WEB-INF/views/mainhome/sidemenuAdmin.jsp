@@ -37,6 +37,7 @@
 	<h3><b>메뉴</b></h3>
 	<hr>
 		<ul id="sidemenu" class="list-unstyled">
+<<<<<<< HEAD
 		    <li><b><a href="/mypageadmin/adminboard"><i class="fi fi-rr-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;문의 답변</a></b></li>
 		    <li><b><a href="/mypageadmin/purchaselist"><i class="fi fi-rs-coins"></i>&nbsp;&nbsp;&nbsp;&nbsp;구매 회원 관리</a></b></li>
 		    <li><b><a href="/mypageadmin/customerlist"><i class="fi fi-rs-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;회원 목록</a></b></li>
@@ -44,5 +45,14 @@
 		    <li><b><a href="/mypageadmin/levellist"><i class="fi fi-rr-settings"></i>&nbsp;&nbsp;&nbsp;&nbsp;레벨 관리</a></b></li>
 <!-- 		    <li><b><a href="#">구독 정책 관리</a></b></li> -->
 		    <li><b><a href="/mypageadmin/statsadmin"><i class="fi fi-sr-chart-line-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;애널리틱스</a></b></li>
+=======
+		    <li><b><a href="/mypageadmin/customerlist"><i class="fi fi-rs-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;회원 목록</a></b></li>
+		    <li><b><a href="/mypageadmin/purchaselist"><i class="fi fi-rs-coins"></i>&nbsp;&nbsp;&nbsp;&nbsp;구매 회원 관리</a></b></li>
+		    <li><b><a href="/mypageadmin/funclist"><i class="fi fi-rr-settings"></i>&nbsp;&nbsp;&nbsp;&nbsp;기능 관리</a></b></li>
+		    <li><b><a href="/mypageadmin/levellist"><i class="fi fi-rr-settings"></i>&nbsp;&nbsp;&nbsp;&nbsp;레벨 관리</a></b></li>
+		    <li><b><a href="#">구독 정책 관리</a></b></li>
+		    <li><b><a href="/mypageadmin/adminboard"><i class="fi fi-rr-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;답변할 문의글</a></b></li>
+		    <li><b><a href="/mypageadmin/statsadmin"><i class="fi fi-sr-chart-line-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;통계내기</a></b></li>
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		</ul>
 </div>

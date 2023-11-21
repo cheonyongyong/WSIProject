@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 		
+<<<<<<< HEAD
 	<!-- 사용자 정의 접근 거부 처리자 빈 -->
 	<bean id="customAccessDenied" class="kr.or.ddit.security.CustomAccessDeniedHandler"/>
 	<!-- 로그인 성공 처리자 빈 -->
@@ -13,6 +14,13 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<!-- UserDetailsService 재정의 -->
 	<bean id="customUserDetailsService" class="kr.or.ddit.security.CustomUserDetailsService"/>
+=======
+	<bean id="customAccessDenied" class="kr.or.ddit.security.CustomAccessDeniedHandler"/>	<!-- 사용자 정의 접근 거부 처리자 빈 -->
+	<bean id="customLoginSuccess" class="kr.or.ddit.security.CustomLoginSuccessHandler"/>	<!-- 로그인 성공 처리자 빈 -->
+<!-- 	<bean id="customPasswordEncoder" class="kr.or.ddit.security.CustomNoOpPasswordEncoder"/>	JDBC를 이용한 인증/인가 처리: 비밀번호 암호화 처리기 사용 안 함 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="customUserDetailsService" class="kr.or.ddit.security.CustomUserDetailsService"/>	<!-- UserDetailsService 재정의 -->
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	
 	<security:http>
 <!-- 		<security:intercept-url pattern="/board/list" access="permitAll"/> -->

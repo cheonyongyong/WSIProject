@@ -14,8 +14,11 @@ public class StatsVO {
 	
 	// 채용	
 	private String year;
+<<<<<<< HEAD
 	private int carCnt;
 	private int newCnt;
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	private int totalCnt;
 	
 	// 근무

@@ -315,6 +315,7 @@ public class hrController {
 	 */
 	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
 	@ResponseBody
+<<<<<<< HEAD
 	@RequestMapping(value = "/statList", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<List<EmpVO>> statList(@RequestBody Map<String, String> map) {
 		log.info("statList() 실행...!");
@@ -472,6 +473,158 @@ public class hrController {
 		log.info("mhr2->pagingVO : " + pagingVO);
 		int totalRecord = hrService.selectMhr2Count(pagingVO);
 		log.info("mhr2->totalRecord : " + totalRecord);
+=======
+	@RequestMapping(value = "/statList", method = RequestMethod.POST)
+	public ResponseEntity<List<EmpVO>> statList(Map<String, Object> map) throws Exception {
+		log.info("statList() 실행...!");
+		
+		List<EmpVO> mhr12statList = hrService.gridStatList();
+		
+		return new ResponseEntity<List<EmpVO>>(mhr12statList,HttpStatus.OK);
+	}
+	
+	/**
+	 * 클릭 휴가중 카드 
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@ResponseBody
+	@RequestMapping(value = "/statList2", method = RequestMethod.POST)
+	public ResponseEntity<List<EmpVO>> statList2(Map<String, Object> map) throws Exception {
+		log.info("statList2() 실행...!");
+		
+		List<EmpVO> mhr12statList2 = hrService.gridStatList2();
+		
+		return new ResponseEntity<List<EmpVO>>(mhr12statList2,HttpStatus.OK);
+	}
+	
+	/**
+	 * 클릭 수습중 카드 
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@ResponseBody
+	@RequestMapping(value = "/statList3", method = RequestMethod.POST)
+	public ResponseEntity<List<EmpVO>> statList3(Map<String, Object> map) throws Exception {
+		log.info("statList3() 실행...!");
+		
+		List<EmpVO> mhr12statList3 = hrService.gridStatList3();
+		
+		return new ResponseEntity<List<EmpVO>>(mhr12statList3,HttpStatus.OK);
+	}
+	
+	/**
+	 * 클릭 퇴직 예정 카드 
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@ResponseBody
+	@RequestMapping(value = "/statList4", method = RequestMethod.POST)
+	public ResponseEntity<List<EmpVO>> statList4(Map<String, Object> map) throws Exception {
+		log.info("statList4() 실행...!");
+		
+		List<EmpVO> mhr12statList4 = hrService.gridStatList4();
+		
+		return new ResponseEntity<List<EmpVO>>(mhr12statList4,HttpStatus.OK);
+	}
+	
+	/**
+	 * 관리자 이상 - 그리드를 사용한 사원 리스트
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@ResponseBody
+	@RequestMapping(value = "/mhr12GridList", method = RequestMethod.GET)
+	public ResponseEntity<List<EmpVO>> boardPost(Map<String, Object> map) throws Exception {
+		log.info("boardPost() 실행...!");
+		
+		List<EmpVO> mhr12List = hrService.gridList();
+		
+		return new ResponseEntity<List<EmpVO>>(mhr12List,HttpStatus.OK);
+	}
+	
+	
+	/**
+	 *  관리자 이상 - 사원 검색 + 카테고리
+	 * @param map
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@ResponseBody
+	@RequestMapping(value="/searchMhr12", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<List<EmpVO>> searchBoard(@RequestBody Map<String, String> map){
+		String searchType = map.get("searchType");
+		String searchWord = map.get("searchWord");
+		log.info("searchType : " + searchType);
+		log.info("searchWord : " + searchWord);
+		
+		EmpVO empVO = new EmpVO();
+		empVO.setSearchType(searchType);
+		empVO.setSearchWord(searchWord);
+		List<EmpVO> mhr12List = hrService.searchMrh12List(empVO);
+				
+		return new ResponseEntity<List<EmpVO>>(mhr12List, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * 관리자 이상 - 재직 상태 변경
+	 * @param empVO
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@ResponseBody
+	@RequestMapping(value="/modifyMhr12", method = RequestMethod.POST, produces = "application/json; charset=utf-8" ,consumes = "application/json")
+	public ResponseEntity<List<EmpVO>> modifyMhr12(@RequestBody EmpVO empVO) {
+		log.info("modifyMhr12() 실행...!");
+		log.info("empVO : " + empVO);
+		hrService.modifyMhr12(empVO);
+		List<EmpVO> mhr12List = hrService.gridList();
+		return new ResponseEntity<List<EmpVO>>(mhr12List,HttpStatus.OK);
+	}
+	
+	/**
+	 * 관리자 이상 - 부서 이동을 위한 사원 조회 
+	 * @param currentPage
+	 * @param searchType
+	 * @param searchWord
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+	@RequestMapping(value="/mhr2")
+	public String mhr2(
+			@RequestParam(name="page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "empName") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model,
+			HttpServletRequest request
+			) {
+		log.info("mhr2() 실행...!");
+		PaginationInfoVO<EmpVO> pagingVO = new PaginationInfoVO<EmpVO>();
+		
+		// 검색이 이뤄지면 아래가 실행됨
+		if(StringUtils.isNotBlank(searchWord)) {
+			pagingVO.setSearchType(searchType);
+			pagingVO.setSearchWord(searchWord);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchWord", searchWord);
+			log.info("searchType : " + searchType);
+			log.info("searchWord : " + searchWord);
+		}
+		
+		pagingVO.setCurrentPage(currentPage);
+		int totalRecord = hrService.selectMhr2Count(pagingVO);
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 		
 		pagingVO.setTotalRecord(totalRecord);
 		List<EmpVO> mhr2List = hrService.selectMhr2List(pagingVO);

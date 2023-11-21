@@ -104,6 +104,7 @@
 	
 	
 	<select id="selectMemberDetail" parameterType="String" resultMap="customerMap">
+<<<<<<< HEAD
 		select cus.cus_rnum, cus.cus_com, cus.cus_name,
 			(select attach.file_savepath from attach where cus.cus_logo = attach.file_no) cus_logo,
 		    (select attach.file_savepath from attach where cus.cus_image = attach.file_no) cus_image, 
@@ -111,6 +112,16 @@
 			cus_addr, cus_addr2, cus_tel, cus_emp, cus_email, cus_birth
 		from customer cus
 		where cus.cus_rnum = #{cusRnum}
+=======
+		select
+		    c.cus_rnum, c.cus_pw, c.cus_com, c.cus_name, c.cus_logo, c.cus_addr, c.cus_addr2,
+		    c.cus_tel, c.cus_emp, c.cus_email, c.cus_birth, c.cus_image, c.cus_signature, c.cus_zip,
+		    a.file_no, a.file_savepath, a.file_name, a.file_orgname, a.file_size,
+		    a.file_mime, a.file_downcount, a.file_regdate, a.file_uploader, a.file_del_conf,
+		    a.file_del_date, a.file_code
+		from customer c left outer join attach a on c.cus_rnum = a.file_uploader
+		where cus_rnum = #{cusRnum}
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	</select>
 	
 	

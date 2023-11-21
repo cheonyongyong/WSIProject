@@ -38,7 +38,11 @@ public interface IHrService {
 	public int selectMhr3DeptCount(PaginationInfoVO<HrHxVO> pagingVO);
 	public List<HrDetailVO> selectMhr3DeptList(PaginationInfoVO<HrDetailVO> pagingVO);
 	public int modifyMemo(HrHxVO hrHxVO);
+<<<<<<< HEAD
 	public List<EmpVO> gridStatList(EmpVO empVO);
+=======
+	public List<EmpVO> gridStatList();
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	public List<EmpVO> gridStatList2();
 	public List<EmpVO> gridStatList3();
 	public List<EmpVO> gridStatList4();

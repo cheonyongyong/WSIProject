@@ -106,6 +106,7 @@ public class DocServiceImpl implements IDocService {
 				docMapper.aprRegister(aprVO);
 			}
 			
+<<<<<<< HEAD
 			if(cnt > 1) {
 				result = ServiceResult.OK;
 			}else {
@@ -369,4 +370,144 @@ public class DocServiceImpl implements IDocService {
 		return result;
 	}
 	
+=======
+			if(cnt > 0) {
+				result = ServiceResult.OK;
+			}else {
+				result = ServiceResult.FAILED;
+			}
+			
+		}else {
+			log.info("새로운 문서를 제출...!");
+			String[] emp = docVO.getEmpNo().split(",");
+			CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			EmpVO empVO = user.getEmp();
+			
+			docVO.setEmpNo(empVO.getEmpNo());
+			
+			int count = docMapper.docRegister(docVO);
+			
+			String docNo = docMapper.selectDocNo();
+			
+			for(int i = 0; i < emp.length; i++) {
+				DocVO aprVO = new DocVO();
+				aprVO.setAprEmpNo(emp[i]);
+				aprVO.setDocNo(docNo);
+				aprVO.setAprNo(i+1);
+				docMapper.aprRegister(aprVO);
+			}
+			if(count == 1) {
+				result = ServiceResult.OK;
+			}else {
+				result = ServiceResult.FAILED;
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<DocVO> selectClfCode(DocVO docVO) {
+		return docMapper.selectClfCode(docVO);
+	}
+
+	@Override
+	public List<DocumentVO> docType() {
+		return docMapper.docType();
+	}
+
+	@Override
+	public int docListCnt() {
+		return docMapper.docListCnt();
+	}
+
+	@Override
+	public int myDocList(PaginationInfoVO<DocVO> pagingVO) {
+		return docMapper.myDocList(pagingVO);
+	}
+
+	@Override
+	public ServiceResult aprUpdate(DocVO docVO) {
+		ServiceResult result = null;
+		int cnt = 0;
+		DocVO apr = docMapper.selectApr(docVO);
+		
+		if(apr.getAprJob() == "N") {
+			cnt = docMapper.aprUpdate(docVO);
+		}else {
+			cnt = docMapper.aprUpdate(docVO);
+			cnt += docMapper.docUpdate(docVO);
+		}
+		
+		
+		if(cnt > 0) {
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAILED;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ServiceResult aprReject(DocVO docVO) {
+		ServiceResult result = null;
+		int cnt = 0;
+		DocVO apr = docMapper.selectApr(docVO);
+		
+		if(apr.getAprJob() == "N") {
+			cnt = docMapper.aprReject(docVO);
+		}else {
+			cnt = docMapper.aprReject(docVO);
+			cnt += docMapper.docReject(docVO);
+		}
+		
+		
+		if(cnt >= 1) {
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAILED;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ServiceResult deleteDoc(String docNo) {
+		ServiceResult result = null;
+		
+		int cnt = docMapper.deleteDoc(docNo);
+		
+		if(cnt > 0) {
+			result = ServiceResult.OK;
+		}else {
+			result = ServiceResult.FAILED;
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public ServiceResult docSave(DocVO docVO) {
+		ServiceResult result = null;
+		int cnt = 0;
+		if(docVO.getDocNo() != null) {
+			cnt = docMapper.updateStorage(docVO);
+		}else {
+			CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			EmpVO empVO = user.getEmp();
+			docVO.setEmpNo(empVO.getEmpNo());
+			cnt = docMapper.save(docVO);
+		}
+		if(cnt > 0) {
+			result = ServiceResult.OK;
+		}
+		return result;
+	}
+
+	@Override
+	public ServiceResult docVacRegister(DocVO docVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 }

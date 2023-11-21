@@ -60,7 +60,10 @@
     <script type="text/javascript">
 	$(function(){
 		alertify.set('notifier','position', 'top-center');
+<<<<<<< HEAD
 		alertify.set('notifier','delay', 2);
+=======
+>>>>>>> branch 'master' of https://github.com/cheonyongyong/finalProject
 	});
 	</script>
 </head>
